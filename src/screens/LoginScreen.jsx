@@ -1,7 +1,7 @@
 import React from 'react'
 import { Formik } from 'formik';
 import TextField from '../components/form-fields/TextField';
-import { Navigate } from 'react-router';
+import Button from '../components/Button';
 import { Link } from 'react-router-dom';
 
 const LoginScreen = () => {
@@ -50,8 +50,8 @@ const LoginScreen = () => {
                         onChange={handleChange}
                         onBlur={handleBlur}
                         value={values.email}
+                        error={errors.email && touched.email && errors.email}
                       />
-                      {errors.email && touched.email && errors.email}
                       <TextField
                         label="Enter your password"
                         type="password"
@@ -59,12 +59,13 @@ const LoginScreen = () => {
                         onChange={handleChange}
                         onBlur={handleBlur}
                         value={values.password}
+                        error={errors.password && touched.password && errors.password}
                       />
-                      {errors.password && touched.password && errors.password}
                       <div className="d-flex justify-content-between">
-                        <button type="submit" className="btn btn-primary">
-                          Login
-                        </button>
+                        <Button
+                          type="submit"
+                          label="Login"
+                        />
                         <div className="d-flex align-items-center">
                           Don't have an account?
                           <Link className="btn btn-link" to="/register">
