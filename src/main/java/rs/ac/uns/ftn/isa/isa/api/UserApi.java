@@ -22,6 +22,7 @@ public class UserApi {
 
     @GetMapping(value = "/me")
     @ResponseStatus(HttpStatus.OK)
+    // TODO: 12/7/21 preauthorize annotations
     public UserResponse getMe() throws Exception {
         return toUserResponse(userService.getMe());
     }
@@ -45,6 +46,17 @@ public class UserApi {
     }
 
     private UserResponse toUserResponse(User user){
-        return UserResponse.builder().build();
+        return UserResponse.builder()
+                .id(user.getId())
+                .role(user.getRole())
+                .email(user.getEmail())
+                .name(user.getName())
+                .surname(user.getSurname())
+                .address(user.getAddress())
+                .city(user.getCity())
+                .country(user.getCountry())
+                .phoneNumber(user.getPhoneNumber())
+                .reasonForRegistration(user.getReasonForRegistration())
+                .build();
     }
 }
