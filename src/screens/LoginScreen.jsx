@@ -3,8 +3,13 @@ import { Formik } from 'formik';
 import TextField from '../components/form-fields/TextField';
 import Button from '../components/Button';
 import { Link } from 'react-router-dom';
+import { loginService } from '../api/authServices';
 
 const LoginScreen = () => {
+  const initialValues = {
+    email: '',
+    password: ''
+  }
   return (
     <main className="login-form">
       <div className="container">
@@ -14,7 +19,7 @@ const LoginScreen = () => {
               <div className="card-header">Login</div>
               <div className="card-body">
                 <Formik
-                  initialValues={{ email: '', password: '' }}
+                  initialValues={initialValues}
                   validate={values => {
                     const errors = {};
                     if (!values.email) {
@@ -27,10 +32,9 @@ const LoginScreen = () => {
                     return errors;
                   }}
                   onSubmit={(values, { setSubmitting }) => {
-                    setTimeout(() => {
-                      alert(JSON.stringify(values, null, 2));
-                      setSubmitting(false);
-                    }, 400);
+                    setSubmitting(true);
+                    loginService(values);
+                    setSubmitting(false);
                   }}
                 >
                   {({
@@ -65,6 +69,7 @@ const LoginScreen = () => {
                         <Button
                           type="submit"
                           label="Login"
+                          disabled={isSubmitting}
                         />
                         <div className="d-flex align-items-center">
                           Don't have an account?
@@ -81,7 +86,7 @@ const LoginScreen = () => {
           </div>
         </div>
       </div>
-    </main>
+    </main >
   )
 }
 
