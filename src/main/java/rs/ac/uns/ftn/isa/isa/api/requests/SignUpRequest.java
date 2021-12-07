@@ -16,6 +16,9 @@ public class SignUpRequest {
     @NotBlank
     private String password;
 
+    @NotBlank
+    private String passwordRepeat;
+
     @NotNull
     private Role role;
 

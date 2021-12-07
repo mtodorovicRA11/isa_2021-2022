@@ -21,7 +21,7 @@ public class AuthenticationApi {
 
     @PostMapping(value = "/sign-up")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void signUp(@RequestBody @Valid SignUpRequest request) {
+    public void signUp(@RequestBody @Valid SignUpRequest request) throws Exception {
         authenticationService.signUp(request);
     }
 

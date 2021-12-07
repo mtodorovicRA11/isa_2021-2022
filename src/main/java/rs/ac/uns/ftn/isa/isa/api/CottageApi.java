@@ -64,8 +64,6 @@ public class CottageApi {
                 .id(cottage.getId())
                 .name(cottage.getName())
                 .address(cottage.getAddress())
-                .ownerName(cottage.getOwner().getName())
-                .ownerSurname(cottage.getOwner().getSurname())
                 .build();
     }
 }

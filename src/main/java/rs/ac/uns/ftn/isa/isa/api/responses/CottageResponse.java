@@ -10,6 +10,4 @@ public class CottageResponse {
     private UUID id;
     private String name;
     private String address;
-    private String ownerName;
-    private String ownerSurname;
 }

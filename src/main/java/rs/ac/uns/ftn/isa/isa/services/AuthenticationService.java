@@ -20,7 +20,11 @@ public class AuthenticationService {
         passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
-    public void signUp(SignUpRequest request){
+    public void signUp(SignUpRequest request) throws Exception {
+
+        if(request.getPassword()!=request.getPasswordRepeat()){
+            throw new Exception("Passwords don't match");
+        }
 
         userService.createUser(request.getEmail(), request.getPassword(), request.getRole(), request.getName(), request.getSurname(), request.getAddress(), request.getCity(), request.getCountry(), request.getPhoneNumber(), request.getReason());
         // TODO: 12/7/21 send email
