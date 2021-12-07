@@ -1,5 +1,6 @@
 package rs.ac.uns.ftn.isa.isa.services;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -9,6 +10,7 @@ import rs.ac.uns.ftn.isa.isa.model.enums.Role;
 import rs.ac.uns.ftn.isa.isa.repository.UserRepository;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class UserService {
@@ -21,25 +23,48 @@ public class UserService {
         passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
-    public User getMe(){
-        // TODO: 12/6/21 add implementation
-        return null;
+    public User getMe() throws Exception {
+
+        return getUserById((java.util.UUID)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
     }
 
-    public void updateMe(UpdateUserRequest request){
-        // TODO: 12/6/21 add implementation
+    public void updateMe(UpdateUserRequest request) throws Exception {
+
+        User user = getMe();
+        user.setName(request.getName());
+        user.setSurname(request.getSurname());
+        user.setAddress(request.getAddress());
+        user.setCity(request.getCity());
+        user.setCountry(request.getCountry());
+        user.setPhoneNumber(request.getPhoneNumber());
+
+        userRepository.save(user);
     }
 
-    public void changePassword(String password){
-        // TODO: 12/6/21 add implementation
+    public void changePassword(String password) throws Exception {
+
+        User user = getMe();
+        user.setHashedPasword(passwordEncoder.encode(password));
+
+        userRepository.save(user);
     }
 
-    public void deactivateMe(){
-        // TODO: 12/6/21 add implementation
+    public void deactivateMe() throws Exception {
+
+        User user = getMe();
+        user.setDeleted(true);
+
+        userRepository.save(user);
     }
 
     public User getUserByEmail(String email) throws Exception {
         Optional<User> userOptional = userRepository.findByEmail(email);
+
+        return userOptional.orElseThrow(() -> new Exception("User not found"));
+    }
+
+    public User getUserById(UUID id) throws Exception {
+        Optional<User> userOptional = userRepository.findById(id);
 
         return userOptional.orElseThrow(() -> new Exception("User not found"));
     }

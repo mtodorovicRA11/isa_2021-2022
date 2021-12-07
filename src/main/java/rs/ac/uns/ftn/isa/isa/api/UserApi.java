@@ -22,25 +22,25 @@ public class UserApi {
 
     @GetMapping(value = "/me")
     @ResponseStatus(HttpStatus.OK)
-    public UserResponse getMe(){
+    public UserResponse getMe() throws Exception {
         return toUserResponse(userService.getMe());
     }
 
     @PutMapping(value = "/me")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateMe(@RequestBody @Valid UpdateUserRequest request){
+    public void updateMe(@RequestBody @Valid UpdateUserRequest request) throws Exception {
         userService.updateMe(request);
     }
 
     @PutMapping(value = "/me/change-password")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void changePassword(@RequestBody @Valid ChangePasswordRequest request){
+    public void changePassword(@RequestBody @Valid ChangePasswordRequest request) throws Exception {
         userService.changePassword(request.getNewPassword());
     }
 
     @PutMapping(value = "/me/deactivate")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deactivateMe(){
+    public void deactivateMe() throws Exception {
         userService.deactivateMe();
     }
 
