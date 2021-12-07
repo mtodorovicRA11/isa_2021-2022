@@ -6,6 +6,7 @@ import lombok.Setter;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +24,10 @@ public class Cottage {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    @NotNull
+    @NotEmpty
+    private String name;
+
+    @NotEmpty
     private String address;
 
     private String promotional;

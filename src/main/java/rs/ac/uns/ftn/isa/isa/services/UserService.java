@@ -69,7 +69,7 @@ public class UserService {
         return userOptional.orElseThrow(() -> new Exception("User not found"));
     }
 
-    public void createUser(String email, String password, Role role, String name, String surname, String address, String city, String country, String phoneNumber, String reason){
+    public User createUser(String email, String password, Role role, String name, String surname, String address, String city, String country, String phoneNumber, String reason){
 
         User user = new User();
         user.setEmail(email);
@@ -85,7 +85,7 @@ public class UserService {
         user.setDeleted(false);
         user.setApproved(false);
 
-        userRepository.save(user);
+        return userRepository.save(user);
     }
 
 }
