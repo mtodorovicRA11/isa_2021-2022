@@ -60,6 +60,12 @@ public class CottageApi {
     }
 
     private CottageResponse toCottageResponse(Cottage cottage){
-        return CottageResponse.builder().build();
+        return CottageResponse.builder()
+                .id(cottage.getId())
+                .name(cottage.getName())
+                .address(cottage.getAddress())
+                .ownerName(cottage.getOwner().getName())
+                .ownerSurname(cottage.getOwner().getSurname())
+                .build();
     }
 }

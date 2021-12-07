@@ -36,6 +36,6 @@ public class AuthenticationService {
             throw new Exception("Wrong Email or Password");
         }
         final String token = JwtUtils.generateJwtToken(user);
-        return SignInResponse.builder().userId(user.getId()).jwt(token).build();
+        return SignInResponse.builder().userId(user.getId()).jwt(token).role(user.getRole()).build();
     }
 }

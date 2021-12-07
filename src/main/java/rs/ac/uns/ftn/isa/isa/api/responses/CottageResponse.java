@@ -2,7 +2,14 @@ package rs.ac.uns.ftn.isa.isa.api.responses;
 
 import lombok.Builder;
 
+import java.util.UUID;
+
 @Builder
 public class CottageResponse {
-    // TODO: 12/6/21 add parameters
+
+    private UUID id;
+    private String name;
+    private String address;
+    private String ownerName;
+    private String ownerSurname;
 }

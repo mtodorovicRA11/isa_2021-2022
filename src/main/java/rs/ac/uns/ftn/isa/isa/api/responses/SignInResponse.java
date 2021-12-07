@@ -1,6 +1,7 @@
 package rs.ac.uns.ftn.isa.isa.api.responses;
 
 import lombok.Builder;
+import rs.ac.uns.ftn.isa.isa.model.enums.Role;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -15,6 +16,7 @@ public class SignInResponse {
     @NotEmpty
     private String jwt;
 
-    // TODO: 12/6/21 finish all the parameters
+    @NotNull
+    private Role role;
 
 }

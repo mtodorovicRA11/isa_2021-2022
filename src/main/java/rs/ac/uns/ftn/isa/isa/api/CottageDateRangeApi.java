@@ -24,17 +24,22 @@ public class CottageDateRangeApi {
 
     @GetMapping(value = "/{id}/date-range/all")
     @ResponseStatus(HttpStatus.OK)
-    public List<CottageDateRangeResponse> getAll(@PathVariable UUID id){
+    public List<CottageDateRangeResponse> getAll(@PathVariable UUID id) throws Exception {
         return cottageDateRangeService.getAllForCottageId(id).stream().map(this::toCottageDateRangeResponse).collect(Collectors.toList());
     }
 
     @PostMapping(value = "/{id}/date-range/")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void create(@RequestBody @Valid CreateCottageDateRangeRequest request){
-        cottageDateRangeService.create(request);
+    public void create(@PathVariable UUID id, @RequestBody @Valid CreateCottageDateRangeRequest request) throws Exception {
+        cottageDateRangeService.create(id, request);
     }
 
     private CottageDateRangeResponse toCottageDateRangeResponse(CottageDateRange cottageDateRange){
-        return CottageDateRangeResponse.builder().build();
+        return CottageDateRangeResponse.builder()
+                .id(cottageDateRange.getId())
+                .beginning(cottageDateRange.getBeginning())
+                .end(cottageDateRange.getEnd())
+                .available(cottageDateRange.getOccupant()==null)
+                .build();
     }
 }
