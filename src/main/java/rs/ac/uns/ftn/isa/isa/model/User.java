@@ -52,6 +52,9 @@ public class User {
     @NotNull
     private Boolean deleted;
 
+    @NotNull
+    private Boolean approved;
+
     @OneToMany(
             mappedBy = "owner",
             cascade = CascadeType.ALL,

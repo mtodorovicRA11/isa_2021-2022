@@ -10,6 +10,7 @@ public class SignInRequest {
     @NotBlank
     private String email;
 
-    // TODO: 12/6/21 finish all the parameters
+    @NotBlank
+    private String password;
 
 }

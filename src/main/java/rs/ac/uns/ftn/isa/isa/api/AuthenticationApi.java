@@ -27,7 +27,7 @@ public class AuthenticationApi {
 
     @PostMapping(value = "/sign-in")
     @ResponseStatus(HttpStatus.OK)
-    public SignInResponse signIn(@RequestBody @Valid SignInRequest request) {
+    public SignInResponse signIn(@RequestBody @Valid SignInRequest request) throws Exception {
         return authenticationService.signIn(request);
     }
 
