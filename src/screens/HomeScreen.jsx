@@ -4,16 +4,16 @@ import { getItemService } from '../api/itemApiService'
 
 const MOCKED_DATA = [{
   "id": 1,
-  "name": "Minerva",
-  "address": "mserjent0@yandex.ru",
+  "name": "First Cottage",
+  "address": "Address One",
 }, {
   "id": 2,
-  "name": "Anastasia",
-  "address": "asunley1@jiathis.com",
+  "name": "Second Cottage",
+  "address": "Address Two",
 }, {
   "id": 3,
-  "name": "Randi",
-  "address": "rsuccamore2@storify.com",
+  "name": "Third Cottage",
+  "address": "Address Three",
 }]
 
 const HomeScreen = () => {
@@ -29,7 +29,6 @@ const HomeScreen = () => {
       <table className="table table-striped">
         <thead>
           <tr>
-            <th scope="col">#</th>
             <th scope="col">Name</th>
             <th scope="col">Address</th>
           </tr>
@@ -37,8 +36,7 @@ const HomeScreen = () => {
         <tbody>
           {MOCKED_DATA.map(item => (
             <tr key={item.id}>
-              <th scope="row">{item.id}</th>
-              <td>{item.name}</td>
+              <th scope="row">{item.name}</th>
               <td>{item.address}</td>
             </tr>
           ))}
@@ -46,7 +44,7 @@ const HomeScreen = () => {
       </table>
       <Button
         type="button"
-        label="Click!"
+        label="Add Cottage"
         onClick={() => console.log('TODO')}
       />
     </div>

@@ -14,7 +14,7 @@ const RegisterScreen = () => {
               <div className="card-header">Register</div>
               <div className="card-body">
                 <Formik
-                  initialValues={{ fullName: '', email: '', password: '' }}
+                  initialValues={{ email: '', password: '', repeatPassword: '', name: '', surname: '', address: '', city: '', country: '', phoneNumber: '', reason: '' }}
                   validate={values => {
                     const errors = {};
                     if (!values.email) {
@@ -44,15 +44,6 @@ const RegisterScreen = () => {
                   }) => (
                     <form onSubmit={handleSubmit}>
                       <TextField
-                        label="Full name"
-                        type="text"
-                        name="fullName"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.fullName}
-                        error={errors.fullName && touched.fullName && errors.fullName}
-                      />
-                      <TextField
                         label="Enter your email"
                         type="email"
                         name="email"
@@ -62,13 +53,85 @@ const RegisterScreen = () => {
                         error={errors.email && touched.email && errors.email}
                       />
                       <TextField
-                        label="Enter your password"
+                        label="Enter yourPassword"
                         type="password"
                         name="password"
                         onChange={handleChange}
                         onBlur={handleBlur}
                         value={values.password}
                         error={errors.password && touched.password && errors.password}
+                      />
+                      <TextField
+                        label="Repeat your password"
+                        type="password"
+                        name="repeatPassword"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        value={values.repeatPassword}
+                        error={errors.repeatPassword && touched.repeatPassword && errors.repeatPassword}
+                      />
+                      <TextField
+                        label="Enter your name"
+                        type="text"
+                        name="name"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        value={values.name}
+                        error={errors.name && touched.name && errors.name}
+                      />
+                      <TextField
+                        label="Enter your surname"
+                        type="text"
+                        name="surname"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        value={values.surname}
+                        error={errors.surname && touched.surname && errors.surname}
+                      />
+                      <TextField
+                        label="Enter your address"
+                        type="text"
+                        name="address"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        value={values.address}
+                        error={errors.address && touched.address && errors.address}
+                      />
+                      <TextField
+                        label="Enter your city"
+                        type="text"
+                        name="city"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        value={values.city}
+                        error={errors.city && touched.city && errors.city}
+                      />
+                      <TextField
+                        label="Enter your country"
+                        type="text"
+                        name="country"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        value={values.country}
+                        error={errors.country && touched.country && errors.country}
+                      />
+                      <TextField
+                        label="Enter your phone number"
+                        type="text"
+                        name="phoneNumber"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        value={values.phoneNumber}
+                        error={errors.phoneNumber && touched.phoneNumber && errors.phoneNumber}
+                      />
+                      <TextField
+                        label="Enter the reason for registration"
+                        type="text"
+                        name="reason"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        value={values.reason}
+                        error={errors.reason && touched.reason && errors.reason}
                       />
                       <div className="d-flex justify-content-between">
                         <Button
