@@ -12,7 +12,7 @@ const RegisterScreen = () => {
   const initialValues = {
     email: '',
     password: '',
-    repeatPassword: '',
+    passwordRepeat: '',
     name: '',
     surname: '',
     address: '',
@@ -91,11 +91,11 @@ const RegisterScreen = () => {
                           <TextField
                             label="Repeat your password"
                             type="password"
-                            name="repeatPassword"
+                            name="passwordRepeat"
                             onChange={handleChange}
                             onBlur={handleBlur}
-                            value={values.repeatPassword}
-                            error={errors.repeatPassword && touched.repeatPassword && errors.repeatPassword}
+                            value={values.passwordRepeat}
+                            error={errors.passwordRepeat && touched.passwordRepeat && errors.passwordRepeat}
                           />
                         </div>
                       </div>
@@ -179,7 +179,7 @@ const RegisterScreen = () => {
                       <RadioGroupField
                         label="Role"
                         name="role"
-                        options={["ADMIN", "COTTAGE_OWNER", "BOAT_OWNER", "FISHING_INSTRUCTOR", "REGULAR"]}
+                        options={["COTTAGE_OWNER", "BOAT_OWNER", "FISHING_INSTRUCTOR"]}
                         onChange={setFieldValue}
                         onBlur={handleBlur}
                         value={values.role}
