@@ -14,7 +14,6 @@ import java.util.UUID;
 @Setter
 @Getter
 @NoArgsConstructor
-@Where(clause = "deleter='false'")
 public class Adventure {
 
     @Id

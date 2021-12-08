@@ -15,7 +15,6 @@ import java.util.UUID;
 @Setter
 @Getter
 @NoArgsConstructor
-@Where(clause = "deleted='false'")
 public class OwnerRegistrationRequest {
 
     @Id
