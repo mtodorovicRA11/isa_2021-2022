@@ -1,38 +1,48 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { Formik } from 'formik';
 import TextField from '../components/form-fields/TextField';
 import { Link, useNavigate } from 'react-router-dom';
 import Button from '../components/Button';
-import { registerService } from '../api/authServices';
-import RadioGroupField from '../components/form-fields/RadioGroupField';
+import {getMeService, updateMeService} from '../api/meApiService';
 
 const RegisterScreen = () => {
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
+  const [me, setMe] = useState([]);
+
+  const getMe = async () => {
+    setIsLoading(true);
+    const me = await getMeService();
+    setMe(me ?? [])
+    setIsLoading(false);
+  }
+
+  const timer = setTimeout(() => {
+    getMe();
+  }, 100);
+  return () => clearTimeout(timer);
 
   const initialValues = {
-    email: '',
-    password: '',
-    passwordRepeat: '',
     name: '',
     surname: '',
     address: '',
     city: '',
     country: '',
     phoneNumber: '',
-    reason: '',
-    role: "ADMIN"
   }
 
-  const register = async (formData, { setSubmitting }) => {
+  const update = async (formData, { setSubmitting }) => {
     try {
       setSubmitting(true);
-      await registerService(formData);
-      navigate('/signin', { replace: true })
+      await updateMeService(formData);
+      navigate('/', { replace: true })
       setSubmitting(false);
     } catch (error) {
       console.log(error);
     }
   }
+
+  if (isLoading) return "Loading...";
 
   return (
     <main className="login-form">
@@ -55,7 +65,7 @@ const RegisterScreen = () => {
                     }
                     return errors;
                   }}
-                  onSubmit={register}>
+                  onSubmit={update}>
                   {({
                     values,
                     errors,
@@ -175,14 +185,6 @@ const RegisterScreen = () => {
                         onBlur={handleBlur}
                         value={values.reason}
                         error={errors.reason && touched.reason && errors.reason}
-                      />
-                      <RadioGroupField
-                        label="Role"
-                        name="role"
-                        options={["COTTAGE_OWNER", "BOAT_OWNER", "FISHING_INSTRUCTOR"]}
-                        onChange={setFieldValue}
-                        onBlur={handleBlur}
-                        value={values.role}
                       />
                       <div className="d-flex justify-content-between mt-3">
                         <Button

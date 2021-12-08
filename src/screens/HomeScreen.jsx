@@ -15,6 +15,7 @@ const HomeScreen = () => {
       setCottages(data ?? [])
       setIsLoading(false);
     }
+
     const timer = setTimeout(() => {
       getCottages()
     }, 100);
@@ -26,6 +27,19 @@ const HomeScreen = () => {
 
   return (
     <div className="container mt-3">
+      <div className="d-flex justify-content-between mt-3">
+        <Button
+            type="button"
+            label="View Profile"
+            onClick={() => navigate("/profile")}
+        />
+        <Button
+            type="button"
+            label="Logout"
+            onClick={() => navigate("/signout")}
+        />
+      </div>
+      <h1>My Cottages</h1>
       <table className="table table-striped">
         <thead>
           <tr>

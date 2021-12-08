@@ -4,6 +4,7 @@ import './App.css';
 
 import AuthWrapper from './components/AuthWrapper';
 import HomeScreen from './screens/HomeScreen';
+import ProfileScreen from './screens/ProfileScreen';
 import LoginScreen from './screens/LoginScreen';
 import NewCottageScreen from './screens/NewCottageScreen';
 import RegisterScreen from './screens/RegisterScreen';
@@ -17,13 +18,18 @@ function App() {
             <HomeScreen />
           </AuthWrapper>
         } />
+        <Route path="/profile" element={
+          <AuthWrapper>
+            <ProfileScreen />
+          </AuthWrapper>
+        } />
         <Route path="/cottage/new" element={
           <AuthWrapper>
             <NewCottageScreen />
           </AuthWrapper>
         } />
-        <Route path="/login" element={<LoginScreen />} />
-        <Route path="/register" element={<RegisterScreen />} />
+        <Route path="/signin" element={<LoginScreen />} />
+        <Route path="/signup" element={<RegisterScreen />} />
       </Routes>
     </BrowserRouter>
   );
