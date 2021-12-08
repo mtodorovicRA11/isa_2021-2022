@@ -9,6 +9,8 @@ import rs.ac.uns.ftn.isa.isa.api.responses.SignInResponse;
 import rs.ac.uns.ftn.isa.isa.model.User;
 import rs.ac.uns.ftn.isa.isa.security.JwtUtils;
 
+import java.util.Objects;
+
 @Service
 public class AuthenticationService {
 
@@ -22,10 +24,9 @@ public class AuthenticationService {
 
     public void signUp(SignUpRequest request) throws Exception {
 
-        // TODO: 12/8/21 fix bug
-//        if(!Objects.equals(request.getPassword(), request.getPasswordRepeat())){
-//            throw new Exception("Passwords don't match");
-//        }
+        if(!Objects.equals(request.getPassword(), request.getPasswordRepeat())){
+            throw new Exception("Passwords don't match");
+        }
 
         userService.createUser(request.getEmail(), request.getPassword(), request.getRole(), request.getName(), request.getSurname(), request.getAddress(), request.getCity(), request.getCountry(), request.getPhoneNumber(), request.getReason());
         // TODO: 12/7/21 send email
