@@ -21,7 +21,7 @@ const HomeScreen = () => {
 
   useEffect(async () => {
     const data = await getItemService();
-    setItems(data);
+    setItems(MOCKED_DATA);
   }, [])
 
   return (

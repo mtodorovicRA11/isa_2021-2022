@@ -70,51 +70,55 @@ const RegisterScreen = () => {
                         value={values.repeatPassword}
                         error={errors.repeatPassword && touched.repeatPassword && errors.repeatPassword}
                       />
-                      <TextField
-                        label="Enter your name"
-                        type="text"
-                        name="name"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.name}
-                        error={errors.name && touched.name && errors.name}
-                      />
-                      <TextField
-                        label="Enter your surname"
-                        type="text"
-                        name="surname"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.surname}
-                        error={errors.surname && touched.surname && errors.surname}
-                      />
-                      <TextField
-                        label="Enter your address"
-                        type="text"
-                        name="address"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.address}
-                        error={errors.address && touched.address && errors.address}
-                      />
-                      <TextField
-                        label="Enter your city"
-                        type="text"
-                        name="city"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.city}
-                        error={errors.city && touched.city && errors.city}
-                      />
-                      <TextField
-                        label="Enter your country"
-                        type="text"
-                        name="country"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.country}
-                        error={errors.country && touched.country && errors.country}
-                      />
+                      <div className="d-flex justify-content-between">
+                        <TextField
+                          label="Enter your name"
+                          type="text"
+                          name="name"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.name}
+                          error={errors.name && touched.name && errors.name}
+                        />
+                        <TextField
+                          label="Enter your surname"
+                          type="text"
+                          name="surname"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.surname}
+                          error={errors.surname && touched.surname && errors.surname}
+                        />
+                      </div>
+                      <div className="d-flex justify-content-between">
+                        <TextField
+                          label="Enter your address"
+                          type="text"
+                          name="address"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.address}
+                          error={errors.address && touched.address && errors.address}
+                        />
+                        <TextField
+                          label="Enter your city"
+                          type="text"
+                          name="city"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.city}
+                          error={errors.city && touched.city && errors.city}
+                        />
+                        <TextField
+                          label="Enter your country"
+                          type="text"
+                          name="country"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.country}
+                          error={errors.country && touched.country && errors.country}
+                        />
+                      </div>
                       <TextField
                         label="Enter your phone number"
                         type="text"
