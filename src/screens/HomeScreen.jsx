@@ -1,28 +1,28 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
 import Button from '../components/Button';
-import { getItemService } from '../api/itemApiService'
-
-const MOCKED_DATA = [{
-  "id": 1,
-  "name": "First Cottage",
-  "address": "Address One",
-}, {
-  "id": 2,
-  "name": "Second Cottage",
-  "address": "Address Two",
-}, {
-  "id": 3,
-  "name": "Third Cottage",
-  "address": "Address Three",
-}]
+import { getCottageService } from '../api/cottageApiService';
+import { useNavigate } from 'react-router-dom';
 
 const HomeScreen = () => {
-  const [items, setItems] = useState([]);
+  const [cottages, setCottages] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
-  useEffect(async () => {
-    const data = await getItemService();
-    setItems(MOCKED_DATA);
+  useEffect(() => {
+    const getCottages = async () => {
+      setIsLoading(true);
+      const data = await getCottageService();
+      setCottages(data ?? [])
+      setIsLoading(false);
+    }
+    const timer = setTimeout(() => {
+      getCottages()
+    }, 100);
+    return () => clearTimeout(timer);
+
   }, [])
+
+  if (isLoading) return "Loading...";
 
   return (
     <div className="container mt-3">
@@ -34,7 +34,7 @@ const HomeScreen = () => {
           </tr>
         </thead>
         <tbody>
-          {MOCKED_DATA.map(item => (
+          {cottages.map(item => (
             <tr key={item.id}>
               <th scope="row">{item.name}</th>
               <td>{item.address}</td>
@@ -45,7 +45,7 @@ const HomeScreen = () => {
       <Button
         type="button"
         label="Add Cottage"
-        onClick={() => console.log('TODO')}
+        onClick={() => navigate("/cottage/new")}
       />
     </div>
   )

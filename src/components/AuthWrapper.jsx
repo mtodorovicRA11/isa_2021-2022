@@ -5,7 +5,7 @@ import { getToken } from '../api/axiosInstance'
 const AuthWrapper = ({ children }) => {
   const token = getToken();
 
-  if (true) {
+  if (!token) {
     return <Navigate to="/login" replace />
   }
 
