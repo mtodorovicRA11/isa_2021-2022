@@ -13,6 +13,7 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Collections;
 import java.util.Date;
+import java.util.UUID;
 
 @Component
 public class JwtUtils {
@@ -27,7 +28,7 @@ public class JwtUtils {
 
     public static Authentication getAuthentication(String token) {
         final Claims claims = Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();
-        final Long userId = Long.valueOf(claims.getSubject());
+        final UUID userId = UUID.fromString(claims.getSubject());
         final String role = claims.get(AUTHORITIES_KEY).toString();
 
         return new PreAuthenticatedAuthenticationToken(userId, null, Collections.singletonList(new SimpleGrantedAuthority(role)));

@@ -22,9 +22,10 @@ public class AuthenticationService {
 
     public void signUp(SignUpRequest request) throws Exception {
 
-        if(request.getPassword()!=request.getPasswordRepeat()){
-            throw new Exception("Passwords don't match");
-        }
+        // TODO: 12/8/21 fix bug
+//        if(!Objects.equals(request.getPassword(), request.getPasswordRepeat())){
+//            throw new Exception("Passwords don't match");
+//        }
 
         userService.createUser(request.getEmail(), request.getPassword(), request.getRole(), request.getName(), request.getSurname(), request.getAddress(), request.getCity(), request.getCountry(), request.getPhoneNumber(), request.getReason());
         // TODO: 12/7/21 send email

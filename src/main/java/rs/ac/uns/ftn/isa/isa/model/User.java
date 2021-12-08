@@ -12,7 +12,6 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @Entity
 @Table(name = "user")
@@ -20,11 +19,7 @@ import java.util.UUID;
 @Getter
 @NoArgsConstructor
 @Where(clause = "deleted='false'")
-public class User {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+public class User extends BaseEntity{
 
     @Enumerated(EnumType.STRING)
     private Role role;

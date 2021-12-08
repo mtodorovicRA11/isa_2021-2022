@@ -10,7 +10,6 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @Entity
 @Table(name = "cottage")
@@ -18,11 +17,7 @@ import java.util.UUID;
 @Getter
 @NoArgsConstructor
 @Where(clause = "deleted='false'")
-public class Cottage {
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+public class Cottage extends BaseEntity{
 
     @NotEmpty
     private String name;

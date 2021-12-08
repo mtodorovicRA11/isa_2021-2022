@@ -1,11 +1,13 @@
 package rs.ac.uns.ftn.isa.isa.api.responses;
 
 import lombok.Builder;
+import lombok.Getter;
 import rs.ac.uns.ftn.isa.isa.model.enums.Role;
 
 import java.util.UUID;
 
 @Builder
+@Getter
 public class UserResponse {
 
     private UUID id;

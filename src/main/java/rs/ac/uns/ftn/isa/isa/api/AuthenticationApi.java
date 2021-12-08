@@ -19,12 +19,14 @@ public class AuthenticationApi {
         this.authenticationService = authenticationService;
     }
 
+    @CrossOrigin
     @PostMapping(value = "/sign-up")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void signUp(@RequestBody @Valid SignUpRequest request) throws Exception {
         authenticationService.signUp(request);
     }
 
+    @CrossOrigin
     @PostMapping(value = "/sign-in")
     @ResponseStatus(HttpStatus.OK)
     public SignInResponse signIn(@RequestBody @Valid SignInRequest request) throws Exception {
