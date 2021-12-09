@@ -1,7 +1,6 @@
 package rs.ac.uns.ftn.isa.isa.security;
 
 import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.JwtException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -33,8 +32,6 @@ public class JwtFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
         } catch ( ExpiredJwtException e) {
             returnUnauthorizedResponse(response, "Access token is expired!");
-        } catch ( JwtException e) {
-            returnUnauthorizedResponse(response, "Access token is invalid!");
         }
     }
 
