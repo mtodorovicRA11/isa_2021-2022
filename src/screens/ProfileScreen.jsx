@@ -36,6 +36,7 @@ const ProfileScreen = () => {
       navigate('/', { replace: true })
       setSubmitting(false);
     } catch (error) {
+      alert(error.response.data);
       console.log(error);
     }
   }
