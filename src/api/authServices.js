@@ -1,9 +1,10 @@
-import axiosInstance, { deleteToken, setToken } from "./axiosInstance";
+import axiosInstance, {deleteToken, setRole, setToken} from "./axiosInstance";
 
 export const loginService = async (formData) => {
   try {
     const { data } = await axiosInstance.post('/authentication/sign-in', formData);
     setToken(data.jwt);
+    setRole(data.role);
   } catch (error) {
     throw error;
   }

@@ -1,17 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import Button from '../components/Button';
-import { getCottageService } from '../api/cottageApiService';
+import { getCottagesService } from '../api/cottageApiService';
+import { logoutService } from '../api/authServices';
 import { useNavigate } from 'react-router-dom';
+import {getRole} from "../api/axiosInstance";
 
 const HomeScreen = () => {
   const [cottages, setCottages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const role = getRole();
 
   useEffect(() => {
     const getCottages = async () => {
       setIsLoading(true);
-      const data = await getCottageService();
+      const data = await getCottagesService();
       setCottages(data ?? [])
       setIsLoading(false);
     }
@@ -25,6 +28,21 @@ const HomeScreen = () => {
 
   if (isLoading) return "Loading...";
 
+  if(role !== "COTTAGE_OWNER") return (
+      <div>
+          No homepage
+            <Button
+                type="button"
+                label="Sign Out"
+                onClick={() => {
+                    logoutService();
+                    navigate("/signin");
+                }
+                }
+            />
+    </div>
+)
+
   return (
     <div className="container mt-3">
       <div className="d-flex justify-content-between mt-3">
@@ -35,8 +53,12 @@ const HomeScreen = () => {
         />
         <Button
             type="button"
-            label="Logout"
-            onClick={() => navigate("/signout")}
+            label="Sign Out"
+            onClick={() => {
+              logoutService();
+              navigate("/signin");
+            }
+            }
         />
       </div>
       <h1>My Cottages</h1>
@@ -45,6 +67,7 @@ const HomeScreen = () => {
           <tr>
             <th scope="col">Name</th>
             <th scope="col">Address</th>
+            <th scope="col">Action</th>
           </tr>
         </thead>
         <tbody>
@@ -52,6 +75,11 @@ const HomeScreen = () => {
             <tr key={item.id}>
               <th scope="row">{item.name}</th>
               <td>{item.address}</td>
+              <td><Button
+                  type="button"
+                  label="View Cottage"
+                  onClick={() => navigate(`/cottage/view/${item.id}`)}
+              /></td>
             </tr>
           ))}
         </tbody>

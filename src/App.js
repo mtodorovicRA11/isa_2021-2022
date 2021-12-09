@@ -7,6 +7,7 @@ import HomeScreen from './screens/HomeScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import LoginScreen from './screens/LoginScreen';
 import NewCottageScreen from './screens/NewCottageScreen';
+import ViewCottageScreen from './screens/ViewCottageScreen';
 import RegisterScreen from './screens/RegisterScreen';
 
 function App() {
@@ -26,6 +27,11 @@ function App() {
         <Route path="/cottage/new" element={
           <AuthWrapper>
             <NewCottageScreen />
+          </AuthWrapper>
+        } />
+        <Route path="/cottage/view/:cottageId" element={
+          <AuthWrapper>
+            <ViewCottageScreen />
           </AuthWrapper>
         } />
         <Route path="/signin" element={<LoginScreen />} />

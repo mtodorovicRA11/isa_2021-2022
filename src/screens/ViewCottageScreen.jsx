@@ -1,26 +1,40 @@
-import React from 'react'
 import { Formik } from 'formik';
-import TextField from '../components/form-fields/TextField';
+import React, {useEffect, useState} from 'react'
 import Button from '../components/Button';
-import { Link, useNavigate } from 'react-router-dom';
-import { loginService } from '../api/authServices';
+import TextField from '../components/form-fields/TextField';
+import { useNavigate } from 'react-router-dom';
+import { getCottageService, updateCottageService } from '../api/cottageApiService';
+import {useParams} from 'react-router-dom';
 
-const LoginScreen = () => {
+const ViewCottageScreen = () => {
   const navigate = useNavigate();
+  const [cottage, setCottage] = useState(null);
+
+  let { cottageId } = useParams();
+
+  useEffect(() => {
+    const getCottage = async () => {
+      const data = await getCottageService(cottageId);
+      setCottage(data ?? null)
+    }
+    getCottage();
+  }, [])
+
+  if(!cottage) return null;
 
   const initialValues = {
-    email: '',
-    password: ''
+    id: cottage.id,
+    name: cottage.name,
+    address: cottage.address,
   }
 
-  const handleSubmit = async (formData, { setSubmitting }) => {
+  const update = async (formData, { setSubmitting }) => {
     try {
       setSubmitting(true);
-      await loginService(formData)
+      await updateCottageService(formData);
       navigate('/', { replace: true })
       setSubmitting(false);
     } catch (error) {
-      alert(error.response.data);
       console.log(error);
     }
   }
@@ -31,22 +45,21 @@ const LoginScreen = () => {
         <div className="row justify-content-center align-content-center" style={{ height: '100vh' }}>
           <div className="col-md-8">
             <div className="card">
-              <div className="card-header">Login</div>
+              <div className="card-header">New cottage</div>
               <div className="card-body">
                 <Formik
                   initialValues={initialValues}
                   validate={values => {
                     const errors = {};
-                    if (!values.email) {
-                      errors.email = 'Required';
-                    } else if (
-                      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-                    ) {
-                      errors.email = 'Invalid email address';
+                    if (!values.address) {
+                      errors.address = 'Required';
+                    }
+                    if (!values.name) {
+                      errors.name = 'Required';
                     }
                     return errors;
                   }}
-                  onSubmit={handleSubmit}
+                  onSubmit={update}
                 >
                   {({
                     values,
@@ -59,35 +72,29 @@ const LoginScreen = () => {
                   }) => (
                     <form onSubmit={handleSubmit}>
                       <TextField
-                        label="Enter your email"
-                        type="email"
-                        name="email"
+                        label="Name"
+                        type="text"
+                        name="name"
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        value={values.email}
-                        error={errors.email && touched.email && errors.email}
+                        value={values.name}
+                        error={errors.name && touched.name && errors.name}
                       />
                       <TextField
-                        label="Enter your password"
-                        type="password"
-                        name="password"
+                        label="Address"
+                        type="text"
+                        name="address"
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        value={values.password}
-                        error={errors.password && touched.password && errors.password}
+                        value={values.address}
+                        error={errors.address && touched.address && errors.address}
                       />
                       <div className="d-flex justify-content-between mt-3">
                         <Button
                           type="submit"
-                          label="Login"
+                          label="Add cottage"
                           disabled={isSubmitting}
                         />
-                        <div className="d-flex align-items-center">
-                          Don't have an account?
-                          <Link className="btn btn-link" to="/signup">
-                            Sign Up
-                          </Link>
-                        </div>
                       </div>
                     </form>
                   )}
@@ -101,4 +108,4 @@ const LoginScreen = () => {
   )
 }
 
-export default LoginScreen
+export default ViewCottageScreen

@@ -1,34 +1,32 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import { Formik } from 'formik';
 import TextField from '../components/form-fields/TextField';
 import { Link, useNavigate } from 'react-router-dom';
 import Button from '../components/Button';
 import {getMeService, updateMeService} from '../api/meApiService';
+import {getCottagesService} from "../api/cottageApiService";
 
-const RegisterScreen = () => {
+const ProfileScreen = () => {
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(false);
-  const [me, setMe] = useState([]);
+  const [me, setMe] = useState(null);
 
-  const getMe = async () => {
-    setIsLoading(true);
-    const me = await getMeService();
-    setMe(me ?? [])
-    setIsLoading(false);
-  }
-
-  const timer = setTimeout(() => {
+  useEffect(() => {
+    const getMe = async () => {
+      const data = await getMeService();
+      setMe(data ?? null)
+    }
     getMe();
-  }, 100);
-  return () => clearTimeout(timer);
+  }, [])
+
+  if(!me) return null;
 
   const initialValues = {
-    name: '',
-    surname: '',
-    address: '',
-    city: '',
-    country: '',
-    phoneNumber: '',
+    name: me.name,
+    surname: me.surname,
+    address: me.address,
+    city: me.city,
+    country: me.country,
+    phoneNumber: me.phoneNumber,
   }
 
   const update = async (formData, { setSubmitting }) => {
@@ -42,26 +40,20 @@ const RegisterScreen = () => {
     }
   }
 
-  if (isLoading) return "Loading...";
-
   return (
     <main className="login-form">
       <div className="container">
         <div className="row justify-content-center align-content-center" style={{ height: "100vh" }}>
           <div className="col-md-8">
             <div className="card">
-              <div className="card-header">Register</div>
+              <div className="card-header">My Profile</div>
               <div className="card-body">
                 <Formik
                   initialValues={initialValues}
                   validate={values => {
                     const errors = {};
-                    if (!values.email) {
-                      errors.email = 'Required';
-                    } else if (
-                      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-                    ) {
-                      errors.email = 'Invalid email address';
+                    if (!values.name) {
+                      errors.name = 'Required';
                     }
                     return errors;
                   }}
@@ -77,42 +69,10 @@ const RegisterScreen = () => {
                     isSubmitting,
                   }) => (
                     <form onSubmit={handleSubmit}>
-                      <TextField
-                        label="Enter your email"
-                        type="email"
-                        name="email"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.email}
-                        error={errors.email && touched.email && errors.email}
-                      />
-                      <div className="d-flex justify-content-between">
-                        <div className="col-6">    <TextField
-                          label="Enter your Password"
-                          type="password"
-                          name="password"
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          value={values.password}
-                          error={errors.password && touched.password && errors.password}
-                        />
-                        </div>
-                        <div className="col-6">
-                          <TextField
-                            label="Repeat your password"
-                            type="password"
-                            name="passwordRepeat"
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            value={values.passwordRepeat}
-                            error={errors.passwordRepeat && touched.passwordRepeat && errors.passwordRepeat}
-                          />
-                        </div>
-                      </div>
                       <div className="d-flex justify-content-between">
                         <div className="col-6">
                           <TextField
-                            label="Enter your name"
+                            label="Name"
                             type="text"
                             name="name"
                             onChange={handleChange}
@@ -123,7 +83,7 @@ const RegisterScreen = () => {
                         </div>
                         <div className="col-6">
                           <TextField
-                            label="Enter your surname"
+                            label="Surname"
                             type="text"
                             name="surname"
                             onChange={handleChange}
@@ -136,7 +96,7 @@ const RegisterScreen = () => {
                       <div className="d-flex justify-content-between">
                         <div className="col-4">
                           <TextField
-                            label="Enter your address"
+                            label="Address"
                             type="text"
                             name="address"
                             onChange={handleChange}
@@ -147,7 +107,7 @@ const RegisterScreen = () => {
                         </div>
                         <div className="col-4">
                           <TextField
-                            label="Enter your city"
+                            label="City"
                             type="text"
                             name="city"
                             onChange={handleChange}
@@ -158,7 +118,7 @@ const RegisterScreen = () => {
                         </div>
                         <div className="col-4">
                           <TextField
-                            label="Enter your country"
+                            label="Country"
                             type="text"
                             name="country"
                             onChange={handleChange}
@@ -169,7 +129,7 @@ const RegisterScreen = () => {
                         </div>
                       </div>
                       <TextField
-                        label="Enter your phone number"
+                        label="Phone number"
                         type="text"
                         name="phoneNumber"
                         onChange={handleChange}
@@ -177,27 +137,12 @@ const RegisterScreen = () => {
                         value={values.phoneNumber}
                         error={errors.phoneNumber && touched.phoneNumber && errors.phoneNumber}
                       />
-                      <TextField
-                        label="Enter the reason for registration"
-                        type="text"
-                        name="reason"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.reason}
-                        error={errors.reason && touched.reason && errors.reason}
-                      />
                       <div className="d-flex justify-content-between mt-3">
                         <Button
                           type="submit"
-                          label="Register"
+                          label="Update"
                           disabled={isSubmitting}
                         />
-                        <div className="d-flex align-items-center">
-                          Already have an account?
-                          <Link className="btn btn-link" to="/signin">
-                            Sign In
-                          </Link>
-                        </div>
                       </div>
                     </form>
                   )}
@@ -211,4 +156,4 @@ const RegisterScreen = () => {
   )
 }
 
-export default RegisterScreen
+export default ProfileScreen
