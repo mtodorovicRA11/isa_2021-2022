@@ -10,7 +10,12 @@ const NewCottageScreen = () => {
 
   const initialValues = {
     name: '',
-    address: ''
+    address: '',
+    promotional: '',
+    photoUrls: '',
+    roomNumber: '',
+    bedNumber: '',
+    rules: ''
   }
 
   const handleSubmit = async (formData, { setSubmitting }) => {
@@ -73,6 +78,51 @@ const NewCottageScreen = () => {
                         onBlur={handleBlur}
                         value={values.address}
                         error={errors.address && touched.address && errors.address}
+                      />
+                      <TextField
+                          label="Promotional Materials"
+                          type="text"
+                          name="promotional"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.promotional}
+                          error={errors.promotional && touched.promotional && errors.promotional}
+                      />
+                      <TextField
+                          label="Photo URLs"
+                          type="text"
+                          name="photoUrls"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.photoUrls}
+                          error={errors.photoUrls && touched.photoUrls && errors.photoUrls}
+                      />
+                      <TextField
+                          label="Number of Rooms"
+                          type="number"
+                          name="roomNumber"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.roomNumber}
+                          error={errors.roomNumber && touched.roomNumber && errors.roomNumber}
+                      />
+                      <TextField
+                          label="Number of beds"
+                          type="number"
+                          name="bedNumber"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.bedNumber}
+                          error={errors.bedNumber && touched.bedNumber && errors.bedNumber}
+                      />
+                      <TextField
+                          label="House Rules"
+                          type="text"
+                          name="rules"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.rules}
+                          error={errors.rules && touched.rules && errors.rules}
                       />
                       <div className="d-flex justify-content-between mt-3">
                         <Button

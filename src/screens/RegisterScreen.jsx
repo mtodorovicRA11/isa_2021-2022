@@ -187,7 +187,7 @@ const RegisterScreen = () => {
                       <div className="d-flex justify-content-between mt-3">
                         <Button
                           type="submit"
-                          label="Register"
+                          label="Sign Up"
                           disabled={isSubmitting}
                         />
                         <div className="d-flex align-items-center">

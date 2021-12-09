@@ -89,10 +89,15 @@ const HomeScreen = () => {
               /></td>
                 <td><Button
                     type="button"
+                    label="Dates"
+                    onClick={() => navigate(`/cottage/view-dates/${item.id}`)}
+                /></td>
+                <td><Button
+                    type="button"
                     label="Delete"
                     onClick={() => {
                         deleteCottageService(item.id);
-                        navigate("/");
+                        window.location.reload();
                         }
                     }
                 /></td>
