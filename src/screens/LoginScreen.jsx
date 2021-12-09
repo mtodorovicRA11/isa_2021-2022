@@ -31,7 +31,7 @@ const LoginScreen = () => {
         <div className="row justify-content-center align-content-center" style={{ height: '100vh' }}>
           <div className="col-md-8">
             <div className="card">
-              <div className="card-header">Login</div>
+              <div className="card-header">Sign In</div>
               <div className="card-body">
                 <Formik
                   initialValues={initialValues}
@@ -79,7 +79,7 @@ const LoginScreen = () => {
                       <div className="d-flex justify-content-between mt-3">
                         <Button
                           type="submit"
-                          label="Login"
+                          label="Sign In"
                           disabled={isSubmitting}
                         />
                         <div className="d-flex align-items-center">

@@ -45,7 +45,7 @@ const ViewCottageScreen = () => {
         <div className="row justify-content-center align-content-center" style={{ height: '100vh' }}>
           <div className="col-md-8">
             <div className="card">
-              <div className="card-header">New cottage</div>
+              <div className="card-header">View Cottage</div>
               <div className="card-body">
                 <Formik
                   initialValues={initialValues}
@@ -92,7 +92,7 @@ const ViewCottageScreen = () => {
                       <div className="d-flex justify-content-between mt-3">
                         <Button
                           type="submit"
-                          label="Add cottage"
+                          label="Update Cottage"
                           disabled={isSubmitting}
                         />
                       </div>

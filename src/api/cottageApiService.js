@@ -36,3 +36,12 @@ export const updateCottageService = async (formData) => {
   }
 }
 
+export const deleteCottageService = async (id) => {
+  try {
+    const { data } = await axiosInstance.delete(`/cottage/${id}`);
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Button from '../components/Button';
-import { getCottagesService } from '../api/cottageApiService';
+import { getCottagesService, deleteCottageService } from '../api/cottageApiService';
 import { logoutService } from '../api/authServices';
 import { useNavigate } from 'react-router-dom';
 import {getRole} from "../api/axiosInstance";
@@ -30,7 +30,7 @@ const HomeScreen = () => {
 
   if(role !== "COTTAGE_OWNER") return (
       <div>
-          No homepage
+          No homepage for this Role (yet)
             <Button
                 type="button"
                 label="Sign Out"
@@ -44,7 +44,14 @@ const HomeScreen = () => {
 )
 
   return (
-    <div className="container mt-3">
+      <div className="container">
+          <header className="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+              <ul className="nav nav-pills">
+                  <li className="nav-item"><a href="#" className="nav-link active" aria-current="page">My Cottages</a></li>
+                  <li className="nav-item"><a href="/cottage/new" className="nav-link">Add Cottage</a></li>
+              </ul>
+          </header>
+    <div className="mt-3">
       <div className="d-flex justify-content-between mt-3">
         <Button
             type="button"
@@ -77,19 +84,24 @@ const HomeScreen = () => {
               <td>{item.address}</td>
               <td><Button
                   type="button"
-                  label="View Cottage"
+                  label="View"
                   onClick={() => navigate(`/cottage/view/${item.id}`)}
               /></td>
+                <td><Button
+                    type="button"
+                    label="Delete"
+                    onClick={() => {
+                        deleteCottageService(item.id);
+                        navigate("/");
+                        }
+                    }
+                /></td>
             </tr>
           ))}
         </tbody>
       </table>
-      <Button
-        type="button"
-        label="Add Cottage"
-        onClick={() => navigate("/cottage/new")}
-      />
     </div>
+      </div>
   )
 }
 
