@@ -7,14 +7,9 @@ import java.util.UUID;
 
 @Builder
 @Getter
-public class CottageResponse {
+public class CottagesResponse {
 
     private UUID id;
     private String name;
     private String address;
-    private String promotional;
-    private String photoURLs;
-    private Integer roomNumber;
-    private Integer bedNumber;
-    private String rules;
 }

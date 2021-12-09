@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import rs.ac.uns.ftn.isa.isa.api.requests.CreateCottageRequest;
 import rs.ac.uns.ftn.isa.isa.api.requests.UpdateCottageRequest;
 import rs.ac.uns.ftn.isa.isa.api.responses.CottageResponse;
+import rs.ac.uns.ftn.isa.isa.api.responses.CottagesResponse;
 import rs.ac.uns.ftn.isa.isa.model.Cottage;
 import rs.ac.uns.ftn.isa.isa.services.CottageService;
 
@@ -25,14 +26,14 @@ public class CottageApi {
 
     @GetMapping(value = "/all")
     @ResponseStatus(HttpStatus.OK)
-    public List<CottageResponse> getAll() throws Exception {
-        return cottageService.getMine().stream().map(this::toCottageResponse).collect(Collectors.toList());
+    public List<CottagesResponse> getAll() throws Exception {
+        return cottageService.getMine().stream().map(this::toCottagesResponse).collect(Collectors.toList());
     }
 
     @GetMapping(value = "/filter")
     @ResponseStatus(HttpStatus.OK)
-    public List<CottageResponse> filterByName(@RequestParam(name = "cottage_name") String name) throws Exception {
-        return cottageService.filterMineByName(name).stream().map(this::toCottageResponse).collect(Collectors.toList());
+    public List<CottagesResponse> filterByName(@RequestParam(name = "cottage_name") String name) throws Exception {
+        return cottageService.filterMineByName(name).stream().map(this::toCottagesResponse).collect(Collectors.toList());
     }
 
     @PostMapping(value = "/")
@@ -59,11 +60,24 @@ public class CottageApi {
         cottageService.deleteById(id);
     }
 
+    private CottagesResponse toCottagesResponse(Cottage cottage){
+        return CottagesResponse.builder()
+                .id(cottage.getId())
+                .name(cottage.getName())
+                .address(cottage.getAddress())
+                .build();
+    }
+
     private CottageResponse toCottageResponse(Cottage cottage){
         return CottageResponse.builder()
                 .id(cottage.getId())
                 .name(cottage.getName())
                 .address(cottage.getAddress())
+                .promotional(cottage.getPromotional())
+                .photoURLs(cottage.getPhotoURLs())
+                .roomNumber(cottage.getRoomNumber())
+                .bedNumber(cottage.getBedNumber())
+                .rules(cottage.getRules())
                 .build();
     }
 }
