@@ -23,7 +23,12 @@ public class JwtUtils {
     private static final String AUTHORITIES_KEY = "auth";
 
     public static String generateJwtToken(User user) {
-        return Jwts.builder().setSubject(user.getId().toString()).claim(AUTHORITIES_KEY, user.getRole()).signWith(SignatureAlgorithm.HS512, SECRET_KEY).setExpiration(Date.from(ZonedDateTime.now(ZoneId.of("UTC")).plusDays(TOKEN_VALID_FOR_DAYS).toInstant())).compact();
+        return Jwts.builder()
+                .setSubject(user.getId().toString())
+                .claim(AUTHORITIES_KEY, user.getRole())
+                .signWith(SignatureAlgorithm.HS512, SECRET_KEY)
+                .setExpiration(Date.from(ZonedDateTime.now(ZoneId.of("UTC")).plusDays(TOKEN_VALID_FOR_DAYS).toInstant()))
+                .compact();
     }
 
     public static Authentication getAuthentication(String token) {
