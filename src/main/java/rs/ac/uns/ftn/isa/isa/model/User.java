@@ -64,4 +64,18 @@ public class User extends BaseEntity{
     )
     private List<CottageDateRange> cottageDateRanges = new ArrayList<>();
 
+    @OneToMany(
+            mappedBy = "owner",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<Boat> boats = new ArrayList<>();
+
+    @OneToMany(
+            mappedBy = "renter",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<BoatDateRange> boatDateRanges = new ArrayList<>();
+
 }

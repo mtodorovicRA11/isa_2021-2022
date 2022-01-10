@@ -15,11 +15,11 @@ import javax.validation.constraints.NotNull;
 import java.time.ZonedDateTime;
 
 @Entity
-@Table(name = "`cottage_date_range`")
+@Table(name = "`boat_date_range`")
 @Setter
 @Getter
 @NoArgsConstructor
-public class CottageDateRange extends BaseEntity {
+public class BoatDateRange extends BaseEntity {
 
     @NotNull
     private ZonedDateTime beginning;
@@ -27,17 +27,17 @@ public class CottageDateRange extends BaseEntity {
     @NotNull
     private ZonedDateTime end;
 
-    private int maxOccupants;
-    private String description;
+    private int maxRenters;
+    private String additionalOffers;
 
     @NotEmpty
     private Integer price;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Cottage cottage;
+    private Boat boat;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private User occupant;
+    private User renter;
 
     @Min(1)
     @Max(5)
