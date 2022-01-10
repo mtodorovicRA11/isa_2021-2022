@@ -39,7 +39,9 @@ public class BoatDateRangeService {
             throw new Exception("Only Boat Owner can create boat slots");
         }
 
-        createBoatDateRange(boat, request.getRenter(), request.getBeginning(), request.getEnd(), request.getMaxRenters(), request.getAdditionalOffers(), request.getPrice());
+        final User renter = request.getRenterId() != null ? userService.getUserById(request.getRenterId()) : null;
+
+        createBoatDateRange(boat, renter, request.getBeginning(), request.getEnd(), request.getMaxRenters(), request.getAdditionalOffers(), request.getPrice());
     }
 
     public BoatDateRange createBoatDateRange(Boat boat, User user, ZonedDateTime beginning, ZonedDateTime end, int maxRenters, String additionalOffers, Integer price){

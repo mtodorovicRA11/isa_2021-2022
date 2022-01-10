@@ -34,11 +34,13 @@ public class CottageDateRangeService {
 
         final User user = userService.getMe();
         final Cottage cottage = cottageService.getById(cottageId);
-        if (cottage.getOwner().getId()!=user.getId()){
+        if (cottage.getOwner().getId() != user.getId()) {
             throw new Exception("Only Cottage Owner can create slots");
         }
 
-        createCottageDateRange(cottage, request.getOccupant(), request.getBeginning(), request.getEnd(), request.getMaxOccupants(), request.getDescription(), request.getPrice());
+        final User occupant = request.getOccupantId() != null ? userService.getUserById(request.getOccupantId()) : null;
+
+        createCottageDateRange(cottage, occupant, request.getBeginning(), request.getEnd(), request.getMaxOccupants(), request.getDescription(), request.getPrice());
     }
 
     public CottageDateRange createCottageDateRange(Cottage cottage, User user, ZonedDateTime beginning, ZonedDateTime end, int maxOccupants, String description, Integer price){

@@ -1,11 +1,11 @@
 package rs.ac.uns.ftn.isa.isa.api.requests;
 
 import lombok.Data;
-import rs.ac.uns.ftn.isa.isa.model.User;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.ZonedDateTime;
+import java.util.UUID;
 
 @Data
 public class CreateBoatDateRangeRequest {
@@ -25,5 +25,5 @@ public class CreateBoatDateRangeRequest {
     @NotEmpty
     private Integer price;
 
-    private User renter;
+    private UUID renterId;
 }
