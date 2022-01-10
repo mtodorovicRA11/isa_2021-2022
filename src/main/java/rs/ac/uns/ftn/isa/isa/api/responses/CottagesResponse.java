@@ -12,4 +12,5 @@ public class CottagesResponse {
     private UUID id;
     private String name;
     private String address;
+    // TODO: 1/10/22 return avg rating
 }

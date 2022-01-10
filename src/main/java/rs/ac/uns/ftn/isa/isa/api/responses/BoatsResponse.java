@@ -7,15 +7,11 @@ import java.util.UUID;
 
 @Builder
 @Getter
-public class CottageResponse {
+public class BoatsResponse {
 
     private UUID id;
     private String name;
+    private String type;
     private String address;
-    private String promotional;
-    private String photoURLs;
-    private Integer roomNumber;
-    private Integer bedNumber;
-    private String rules;
     // TODO: 1/10/22 return avg rating
 }
