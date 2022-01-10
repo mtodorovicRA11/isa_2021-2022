@@ -4,6 +4,7 @@ import { getCottagesService, deleteCottageService } from '../api/cottageApiServi
 import { logoutService } from '../api/authServices';
 import { useNavigate } from 'react-router-dom';
 import {getRole} from "../api/axiosInstance";
+import Navigation from "../components/Navigation";
 
 const HomeScreen = () => {
   const [cottages, setCottages] = useState([]);
@@ -45,12 +46,13 @@ const HomeScreen = () => {
 
   return (
       <div className="container">
-          <header className="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
-              <ul className="nav nav-pills">
-                  <li className="nav-item"><a href="#" className="nav-link active" aria-current="page">My Cottages</a></li>
-                  <li className="nav-item"><a href="/cottage/new" className="nav-link">Add Cottage</a></li>
-              </ul>
-          </header>
+        <Navigation handleSearch={() => {}} />
+          {/*<header className="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">*/}
+          {/*    <ul className="nav nav-pills">*/}
+          {/*        <li className="nav-item"><a href="#" className="nav-link active" aria-current="page">My Cottages</a></li>*/}
+          {/*        <li className="nav-item"><a href="/cottage/new" className="nav-link">Add Cottage</a></li>*/}
+          {/*    </ul>*/}
+          {/*</header>*/}
     <div className="mt-3">
       <div className="d-flex justify-content-between mt-3">
         <Button
