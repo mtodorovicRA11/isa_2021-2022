@@ -3,6 +3,20 @@ import { NavLink } from 'react-router-dom';
 import { Formik } from 'formik';
 import TextField from "./form-fields/TextField";
 import Button from "./Button";
+import {getRole} from "../api/axiosInstance";
+import {logoutService} from "../api/authServices";
+
+function renderMenu() {
+  if (getRole() === "COTTAGE_OWNER") {
+    return (
+      <NavLink className={isActive => isActive ? "nav-link-active" : "nav-link"} to="/cottage/new">New Cottage</NavLink>
+    );
+  } else if (getRole() === "BOAT_OWNER") {
+    return (
+      <NavLink className={isActive => isActive ? "nav-link-active" : "nav-link"} to="/boat/new">New Boat</NavLink>
+    );
+  }
+}
 
 const Navigation = ({ handleSearch }) => {
   return (
@@ -15,10 +29,13 @@ const Navigation = ({ handleSearch }) => {
               <NavLink className={isActive => isActive ? "nav-link-active" : "nav-link"} to="/">Home</NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className={isActive => isActive ? "nav-link-active" : "nav-link"} to="/cottage/new">New Cottage</NavLink>
+              {renderMenu()}
             </li>
             <li className="nav-item">
               <NavLink className={isActive => isActive ? "nav-link-active" : "nav-link"} to="/profile">Profile</NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className={isActive => isActive ? "nav-link-active" : "nav-link"} to="/signin">SignOut</NavLink>
             </li>
           </ul>
           {handleSearch && <Formik

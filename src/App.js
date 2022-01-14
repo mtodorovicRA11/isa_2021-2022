@@ -3,7 +3,8 @@ import { BrowserRouter } from 'react-router-dom';
 import './App.css';
 
 import AuthWrapper from './components/AuthWrapper';
-import HomeScreen from './screens/HomeScreen';
+import HomeScreenCottageOwner from './screens/HomeScreenCottageOwner';
+import HomeScreenBoatOwner from './screens/HomeScreenBoatOwner';
 import ProfileScreen from './screens/ProfileScreen';
 import LoginScreen from './screens/LoginScreen';
 import NewCottageScreen from './screens/NewCottageScreen';
@@ -14,9 +15,14 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={
+        <Route path="/cottages" element={
           <AuthWrapper>
-            <HomeScreen />
+            <HomeScreenCottageOwner />
+          </AuthWrapper>
+        } />
+        <Route path="/boats" element={
+          <AuthWrapper>
+            <HomeScreenBoatOwner />
           </AuthWrapper>
         } />
         <Route path="/profile" element={

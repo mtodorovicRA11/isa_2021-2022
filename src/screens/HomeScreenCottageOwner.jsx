@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import {getRole} from "../api/axiosInstance";
 import Navigation from "../components/Navigation";
 
-const HomeScreen = () => {
+const HomeScreenCottageOwner = () => {
   const [cottages, setCottages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
@@ -29,7 +29,7 @@ const HomeScreen = () => {
 
   if (isLoading) return "Loading...";
 
-  if(role !== "COTTAGE_OWNER") return (
+  if(role !== "BOAT_OWNER" && role !== "COTTAGE_OWNER") return (
       <div>
           No homepage for this Role (yet)
             <Button
@@ -53,29 +53,13 @@ const HomeScreen = () => {
           {/*        <li className="nav-item"><a href="/cottage/new" className="nav-link">Add Cottage</a></li>*/}
           {/*    </ul>*/}
           {/*</header>*/}
-    <div className="mt-3">
-      <div className="d-flex justify-content-between mt-3">
-        <Button
-            type="button"
-            label="View Profile"
-            onClick={() => navigate("/profile")}
-        />
-        <Button
-            type="button"
-            label="Sign Out"
-            onClick={() => {
-              logoutService();
-              navigate("/signin");
-            }
-            }
-        />
-      </div>
       <h1>My Cottages</h1>
       <table className="table table-striped">
         <thead>
           <tr>
             <th scope="col">Name</th>
             <th scope="col">Address</th>
+            <th scope="col">Rating</th>
             <th scope="col">Action</th>
           </tr>
         </thead>
@@ -84,6 +68,7 @@ const HomeScreen = () => {
             <tr key={item.id}>
               <th scope="row">{item.name}</th>
               <td>{item.address}</td>
+              <td>{item.rating}</td>
               <td><Button
                   type="button"
                   label="View"
@@ -108,8 +93,7 @@ const HomeScreen = () => {
         </tbody>
       </table>
     </div>
-      </div>
   )
 }
 
-export default HomeScreen
+export default HomeScreenCottageOwner

@@ -4,6 +4,7 @@ import TextField from '../components/form-fields/TextField';
 import Button from '../components/Button';
 import { Link, useNavigate } from 'react-router-dom';
 import { loginService } from '../api/authServices';
+import {getRole} from "../api/axiosInstance";
 
 const LoginScreen = () => {
   const navigate = useNavigate();
@@ -17,7 +18,13 @@ const LoginScreen = () => {
     try {
       setSubmitting(true);
       await loginService(formData)
-      navigate('/', { replace: true })
+      const role = getRole();
+      if(role==="BOAT_OWNER"){
+        navigate('/boats', { replace: true })
+      }
+      else if(role==="COTTAGE_OWNER"){
+        navigate('/cottages', { replace: true })
+      }
       setSubmitting(false);
     } catch (error) {
       alert(error.response.data);

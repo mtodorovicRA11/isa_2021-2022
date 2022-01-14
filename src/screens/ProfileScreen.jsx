@@ -33,7 +33,7 @@ const ProfileScreen = () => {
     try {
       setSubmitting(true);
       await updateMeService(formData);
-      navigate('/', { replace: true })
+      window.history.go(-1);
       setSubmitting(false);
     } catch (error) {
       alert(error.response.data);
