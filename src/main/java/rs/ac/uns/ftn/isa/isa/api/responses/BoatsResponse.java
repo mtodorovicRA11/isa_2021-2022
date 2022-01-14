@@ -13,5 +13,5 @@ public class BoatsResponse {
     private String name;
     private String type;
     private String address;
-    // TODO: 1/10/22 return avg rating
+    private Double rating;
 }
