@@ -23,7 +23,7 @@ const NewCottageScreen = () => {
       setSubmitting(true);
       postCottageService(formData)
       setSubmitting(false);
-      navigate("/");
+      navigate("/cottages");
     } catch (error) {
       console.log(error);
     }
@@ -62,7 +62,7 @@ const NewCottageScreen = () => {
                   }) => (
                     <form onSubmit={handleSubmit}>
                       <TextField
-                        label="Name"
+                        label="Name *"
                         type="text"
                         name="name"
                         onChange={handleChange}
@@ -71,7 +71,7 @@ const NewCottageScreen = () => {
                         error={errors.name && touched.name && errors.name}
                       />
                       <TextField
-                        label="Address"
+                        label="Address *"
                         type="text"
                         name="address"
                         onChange={handleChange}

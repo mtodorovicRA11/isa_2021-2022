@@ -10,6 +10,8 @@ import LoginScreen from './screens/LoginScreen';
 import NewCottageScreen from './screens/NewCottageScreen';
 import ViewCottageScreen from './screens/ViewCottageScreen';
 import RegisterScreen from './screens/RegisterScreen';
+import NewBoatScreen from './screens/NewBoatScreen';
+import ViewBoatScreen from './screens/ViewBoatScreen';
 
 function App() {
   return (
@@ -23,6 +25,11 @@ function App() {
         <Route path="/boats" element={
           <AuthWrapper>
             <HomeScreenBoatOwner />
+          </AuthWrapper>
+        } />
+        <Route path="/boat/new" element={
+          <AuthWrapper>
+            <NewBoatScreen />
           </AuthWrapper>
         } />
         <Route path="/profile" element={
@@ -42,6 +49,11 @@ function App() {
         } />
         <Route path="/signin" element={<LoginScreen />} />
         <Route path="/signup" element={<RegisterScreen />} />
+        <Route path="/boat/view/:boatId" element={
+          <AuthWrapper>
+            <ViewBoatScreen />
+          </AuthWrapper>
+        } />
       </Routes>
     </BrowserRouter>
   );

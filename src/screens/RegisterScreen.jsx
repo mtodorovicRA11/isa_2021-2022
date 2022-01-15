@@ -54,6 +54,18 @@ const RegisterScreen = () => {
                     ) {
                       errors.email = 'Invalid email address';
                     }
+                    if (!values.password) {
+                      errors.password = 'Required';
+                    }
+                    if (!values.password) {
+                      errors.passwordRepeat = 'Required';
+                    }
+                    if (!values.name) {
+                      errors.name = 'Required';
+                    }
+                    if (!values.surname) {
+                      errors.surname = 'Required';
+                    }
                     return errors;
                   }}
                   onSubmit={register}>
@@ -69,7 +81,7 @@ const RegisterScreen = () => {
                   }) => (
                     <form onSubmit={handleSubmit}>
                       <TextField
-                        label="Enter your email"
+                        label="Enter your email *"
                         type="email"
                         name="email"
                         onChange={handleChange}
@@ -79,7 +91,7 @@ const RegisterScreen = () => {
                       />
                       <div className="d-flex justify-content-between">
                         <div className="col-6">    <TextField
-                          label="Enter your Password"
+                          label="Enter your Password *"
                           type="password"
                           name="password"
                           onChange={handleChange}
@@ -90,7 +102,7 @@ const RegisterScreen = () => {
                         </div>
                         <div className="col-6">
                           <TextField
-                            label="Repeat your password"
+                            label="Repeat your password *"
                             type="password"
                             name="passwordRepeat"
                             onChange={handleChange}
@@ -103,7 +115,7 @@ const RegisterScreen = () => {
                       <div className="d-flex justify-content-between">
                         <div className="col-6">
                           <TextField
-                            label="Enter your name"
+                            label="Enter your name *"
                             type="text"
                             name="name"
                             onChange={handleChange}
@@ -114,7 +126,7 @@ const RegisterScreen = () => {
                         </div>
                         <div className="col-6">
                           <TextField
-                            label="Enter your surname"
+                            label="Enter your surname *"
                             type="text"
                             name="surname"
                             onChange={handleChange}
