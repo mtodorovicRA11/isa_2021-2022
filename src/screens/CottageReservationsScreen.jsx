@@ -34,7 +34,7 @@ const CottageReservationsScreen = () => {
   return (
       <div className="container">
         <Navigation />
-      <h1>Reservations for </h1>
+      <h1>Reservations for {cottage.name}</h1>
         <td><Button
           type="button"
           label="Add New"

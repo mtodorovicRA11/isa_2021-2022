@@ -22,7 +22,7 @@ function renderBack() {
   if(window.location.href!=="http://localhost:3000/boats" && window.location.href!=="http://localhost:3000/cottages"){
     return(
       <li className="nav-item">
-        <NavLink className={isActive => isActive ? "nav-link-active" : "nav-link"} to="javascript:history.back();">Back</NavLink>
+        <NavLink className={isActive => isActive ? "nav-link-active" : "nav-link"} to="window.history.back();">Back</NavLink>
       </li>
     )
   }
@@ -32,24 +32,22 @@ const Navigation = ({ handleSearch }) => {
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <div className="container-fluid">
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            <li className="nav-item">
+        <div className="collapse navbar-collapse d-flex justify-content-between" id="navbarSupportedContent">
+          <ul className="navbar-nav mr-auto">
+            <li className="nav-item nav-link">
               {renderBack()}
             </li>
-            <li className="nav-item">
+            <li className="nav-item nav-link">
               {renderHome()}
             </li>
-            <li className="nav-item">
+            <li className="nav-item nav-link">
               <NavLink className={isActive => isActive ? "nav-link-active" : "nav-link"} to="/profile">Profile</NavLink>
             </li>
-            <li className="nav-item">
+            <li className="nav-item nav-link">
               <NavLink className={isActive => isActive ? "nav-link-active" : "nav-link"} to="javascript:window.history.back();" >Sign Out</NavLink>
             </li>
           </ul>
           {handleSearch && <Formik
-            className="d-flex"
             initialValues={{ searchParam: "" }}
             onSubmit={handleSearch}
           >
@@ -59,8 +57,8 @@ const Navigation = ({ handleSearch }) => {
                 handleBlur,
                 handleSubmit,
               }) => (
-              <form onSubmit={handleSubmit}>
-                <TextField
+              <form onSubmit={handleSubmit} class="form-inline my-2 my-lg-0 d-flex justify-content-between">
+                <TextField class="form-control mr-sm-2"
                   placeholder="Search"
                   type="text"
                   name="searchParam"
@@ -68,12 +66,11 @@ const Navigation = ({ handleSearch }) => {
                   onBlur={handleBlur}
                   value={values.searchParam}
                 />
-                <Button type="submit" label="Search" />
+                <Button type="submit" label="Search" class="btn btn-outline-success my-2 my-sm-0"/>
               </form>
             )}
           </Formik>}
         </div>
-      </div>
     </nav>
   )
 }
