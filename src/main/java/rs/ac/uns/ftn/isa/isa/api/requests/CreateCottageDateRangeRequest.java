@@ -20,10 +20,8 @@ public class CreateCottageDateRangeRequest {
     private int maxOccupants;
 
     @NotEmpty
-    private String description;
-
-    @NotEmpty
     private Integer price;
 
+    private String description;
     private UUID occupantId;
 }

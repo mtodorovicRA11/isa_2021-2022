@@ -16,14 +16,12 @@ public class CreateBoatDateRangeRequest {
     @NotNull
     private ZonedDateTime end;
 
-    @NotNull
-    private int maxRenters;
-
-    @NotEmpty
-    private String additionalOffers;
-
     @NotEmpty
     private Integer price;
 
+    private Integer maxRenters;
+    private String additionalOffers;
+
     private UUID renterId;
+
 }
