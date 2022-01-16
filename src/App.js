@@ -6,16 +6,16 @@ import AuthWrapper from './components/AuthWrapper';
 import HomeScreenCottageOwner from './screens/HomeScreenCottageOwner';
 import HomeScreenBoatOwner from './screens/HomeScreenBoatOwner';
 import ProfileScreen from './screens/ProfileScreen';
-import LoginScreen from './screens/LoginScreen';
 import NewCottageScreen from './screens/NewCottageScreen';
 import ViewCottageScreen from './screens/ViewCottageScreen';
-import RegisterScreen from './screens/RegisterScreen';
+import SignUpScreen from './screens/SignUpScreen';
 import NewBoatScreen from './screens/NewBoatScreen';
 import ViewBoatScreen from './screens/ViewBoatScreen';
 import BoatReservationsScreen from "./screens/BoatReservationsScreen";
 import NewBoatReservationScreen from "./screens/NewBoatReservationScreen";
 import CottageReservationsScreen from "./screens/CottageReservationsScreen";
 import NewCottageReservationScreen from "./screens/NewCottageReservationScreen";
+import SignInScreen from "./screens/SignInScreen";
 
 function App() {
   return (
@@ -51,8 +51,8 @@ function App() {
             <ViewCottageScreen />
           </AuthWrapper>
         } />
-        <Route path="/signin" element={<LoginScreen />} />
-        <Route path="/signup" element={<RegisterScreen />} />
+        <Route path="/signin" element={<SignInScreen />} />
+        <Route path="/signup" element={<SignUpScreen />} />
         <Route path="/boat/view/:boatId" element={
           <AuthWrapper>
             <ViewBoatScreen />

@@ -3,10 +3,10 @@ import { Formik } from 'formik';
 import TextField from '../components/form-fields/TextField';
 import Button from '../components/Button';
 import { Link, useNavigate } from 'react-router-dom';
-import { loginService } from '../api/authServices';
+import { signInService } from '../api/authServices';
 import {getRole} from "../api/axiosInstance";
 
-const LoginScreen = () => {
+const SignInScreen = () => {
   const navigate = useNavigate();
 
   const initialValues = {
@@ -17,7 +17,7 @@ const LoginScreen = () => {
   const handleSubmit = async (formData, { setSubmitting }) => {
     try {
       setSubmitting(true);
-      await loginService(formData)
+      await signInService(formData)
       const role = getRole();
       if(role==="BOAT_OWNER"){
         navigate('/boats', { replace: true })
@@ -108,4 +108,4 @@ const LoginScreen = () => {
   )
 }
 
-export default LoginScreen
+export default SignInScreen

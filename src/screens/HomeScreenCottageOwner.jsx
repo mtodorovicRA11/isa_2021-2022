@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import Button from '../components/Button';
-import { getCottagesService, deleteCottageService } from '../api/cottageApiService';
-import { logoutService } from '../api/authServices';
+import {getCottagesService, deleteCottageService, getFilteredCottagesService} from '../api/cottageApiService';
+import { signOutService } from '../api/authServices';
 import { useNavigate } from 'react-router-dom';
 import {getRole} from "../api/axiosInstance";
 import Navigation from "../components/Navigation";
+import {getFilteredBoatsService} from "../api/boatApiService";
 
 const HomeScreenCottageOwner = () => {
   const [cottages, setCottages] = useState([]);
@@ -36,7 +37,7 @@ const HomeScreenCottageOwner = () => {
                 type="button"
                 label="Sign Out"
                 onClick={() => {
-                    logoutService();
+                  signOutService();
                     navigate("/signin");
                 }
                 }
@@ -46,14 +47,16 @@ const HomeScreenCottageOwner = () => {
 
   return (
       <div className="container">
-        <Navigation handleSearch={() => {}} />
-          {/*<header className="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">*/}
-          {/*    <ul className="nav nav-pills">*/}
-          {/*        <li className="nav-item"><a href="#" className="nav-link active" aria-current="page">My Cottages</a></li>*/}
-          {/*        <li className="nav-item"><a href="/cottage/new" className="nav-link">Add Cottage</a></li>*/}
-          {/*    </ul>*/}
-          {/*</header>*/}
+        <Navigation handleSearch={async (searchValue) => {
+          const data = await getFilteredCottagesService(searchValue);
+          setCottages(data ?? [])
+        }}/>
       <h1>My Cottages</h1>
+        <td><Button
+          type="button"
+          label="Add New"
+          onClick={() => navigate(`/cottage/new`)}
+        /></td>
       <table className="table table-striped">
         <thead>
           <tr>
@@ -77,14 +80,13 @@ const HomeScreenCottageOwner = () => {
                 <td><Button
                     type="button"
                     label="Reservations"
-                    onClick={() => navigate(`/boat/${item.id}/reservations`)}
+                    onClick={() => navigate(`/cottage/${item.id}/reservations`)}
                 /></td>
                 <td><Button
                     type="button"
                     label="Delete"
                     onClick={() => {
-                        deleteCottageService(item.id);
-                        window.location.reload();
+                        deleteCottageService(item.id).then(r => window.location.reload());
                         }
                     }
                 /></td>

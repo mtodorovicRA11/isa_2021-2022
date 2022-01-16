@@ -147,6 +147,11 @@ const ViewCottageScreen = () => {
                           label="Update Cottage"
                           disabled={isSubmitting}
                         />
+                        <Button
+                          type="button"
+                          label="Cancel"
+                          onClick={() => {window.history.back()}}
+                        />
                       </div>
                     </form>
                   )}

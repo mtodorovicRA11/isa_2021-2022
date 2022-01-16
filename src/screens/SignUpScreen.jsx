@@ -3,10 +3,10 @@ import { Formik } from 'formik';
 import TextField from '../components/form-fields/TextField';
 import { Link, useNavigate } from 'react-router-dom';
 import Button from '../components/Button';
-import { registerService } from '../api/authServices';
+import { signUpService } from '../api/authServices';
 import RadioGroupField from '../components/form-fields/RadioGroupField';
 
-const RegisterScreen = () => {
+const SignUpScreen = () => {
   const navigate = useNavigate();
 
   const initialValues = {
@@ -23,10 +23,10 @@ const RegisterScreen = () => {
     role: "ADMIN"
   }
 
-  const register = async (formData, { setSubmitting }) => {
+  const signUp = async (formData, { setSubmitting }) => {
     try {
       setSubmitting(true);
-      await registerService(formData);
+      await signUpService(formData);
       navigate('/signin', { replace: true })
       setSubmitting(false);
     } catch (error) {
@@ -68,7 +68,7 @@ const RegisterScreen = () => {
                     }
                     return errors;
                   }}
-                  onSubmit={register}>
+                  onSubmit={signUp}>
                   {({
                     values,
                     errors,
@@ -222,4 +222,4 @@ const RegisterScreen = () => {
   )
 }
 
-export default RegisterScreen
+export default SignUpScreen

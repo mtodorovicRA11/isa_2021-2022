@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Button from '../components/Button';
 import {useNavigate, useParams} from 'react-router-dom';
 import Navigation from "../components/Navigation";
-import {getBoatService} from "../api/boatApiService";
+import {getBoatService, getFilteredBoatsService} from "../api/boatApiService";
 import {getBoatReservationsService} from "../api/boatReservationsApiService";
 
 const BoatReservationsScreen = () => {
@@ -33,13 +33,7 @@ const BoatReservationsScreen = () => {
 
   return (
       <div className="container">
-        <Navigation handleSearch={() => {}} />
-          {/*<header className="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">*/}
-          {/*    <ul className="nav nav-pills">*/}
-          {/*        <li className="nav-item"><a href="#" className="nav-link active" aria-current="page">My Cottages</a></li>*/}
-          {/*        <li className="nav-item"><a href="/cottage/new" className="nav-link">Add Cottage</a></li>*/}
-          {/*    </ul>*/}
-          {/*</header>*/}
+        <Navigation/>
       <h1>Reservations for </h1>
         <td><Button
           type="button"

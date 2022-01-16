@@ -9,6 +9,17 @@ export const getCottagesService = async () => {
   }
 }
 
+export const getFilteredCottagesService = async (params) => {
+  try {
+    const { data } = await axiosInstance.get('/cottage/filter', { params: {
+        cottage_name: params.searchParam
+      }});
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
 export const getCottageService = async (id) => {
   try {
     const { data } = await axiosInstance.get(`/cottage/${id}`);

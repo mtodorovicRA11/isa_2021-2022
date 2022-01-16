@@ -241,8 +241,13 @@ const ViewBoatScreen = () => {
                       <div className="d-flex justify-content-between mt-3">
                         <Button
                           type="submit"
-                          label="Upadte Boat"
+                          label="Update Boat"
                           disabled={isSubmitting}
+                        />
+                        <Button
+                          type="button"
+                          label="Cancel"
+                          onClick={() => {window.history.back()}}
                         />
                       </div>
                     </form>

@@ -72,7 +72,7 @@ const NewCottageReservationScreen = () => {
                         <div className="col-6">
                       <TextField
                         label="Beginning *"
-                        type="date"
+                        type="datetime-local"
                         name="beginning"
                         onChange={handleChange}
                         onBlur={handleBlur}
@@ -83,7 +83,7 @@ const NewCottageReservationScreen = () => {
                         <div className="col-6">
                       <TextField
                         label="End *"
-                        type="date"
+                        type="datetime-local"
                         name="end"
                         onChange={handleChange}
                         onBlur={handleBlur}
@@ -139,6 +139,11 @@ const NewCottageReservationScreen = () => {
                           type="submit"
                           label="Add Reservation"
                           disabled={isSubmitting}
+                        />
+                        <Button
+                          type="button"
+                          label="Cancel"
+                          onClick={() => {window.history.back()}}
                         />
                       </div>
                     </form>
