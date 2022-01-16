@@ -1,11 +1,13 @@
 import React from 'react'
 import { Navigate } from 'react-router';
-import { getToken } from '../api/axiosInstance'
+import { getToken, getRole } from '../api/axiosInstance'
 
 const AuthWrapper = ({ children }) => {
   const token = getToken();
+  const role = getRole();
 
-  if (!token) {
+
+  if (!token || children.props.required_role && role != children.props.required_role) {
     return <Navigate to="/signin" replace />
   }
 

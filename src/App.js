@@ -12,6 +12,10 @@ import ViewCottageScreen from './screens/ViewCottageScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import NewBoatScreen from './screens/NewBoatScreen';
 import ViewBoatScreen from './screens/ViewBoatScreen';
+import BoatReservationsScreen from "./screens/BoatReservationsScreen";
+import NewBoatReservationScreen from "./screens/NewBoatReservationScreen";
+import CottageReservationsScreen from "./screens/CottageReservationsScreen";
+import NewCottageReservationScreen from "./screens/NewCottageReservationScreen";
 
 function App() {
   return (
@@ -19,17 +23,17 @@ function App() {
       <Routes>
         <Route path="/cottages" element={
           <AuthWrapper>
-            <HomeScreenCottageOwner />
+            <HomeScreenCottageOwner required_role="COTTAGE_OWNER" />
           </AuthWrapper>
         } />
         <Route path="/boats" element={
           <AuthWrapper>
-            <HomeScreenBoatOwner />
+            <HomeScreenBoatOwner required_role="BOAT_OWNER"/>
           </AuthWrapper>
         } />
         <Route path="/boat/new" element={
           <AuthWrapper>
-            <NewBoatScreen />
+            <NewBoatScreen required_role="BOAT_OWNER"/>
           </AuthWrapper>
         } />
         <Route path="/profile" element={
@@ -39,7 +43,7 @@ function App() {
         } />
         <Route path="/cottage/new" element={
           <AuthWrapper>
-            <NewCottageScreen />
+            <NewCottageScreen required_role="COTTAGE_OWNER"/>
           </AuthWrapper>
         } />
         <Route path="/cottage/view/:cottageId" element={
@@ -52,6 +56,26 @@ function App() {
         <Route path="/boat/view/:boatId" element={
           <AuthWrapper>
             <ViewBoatScreen />
+          </AuthWrapper>
+        } />
+        <Route path="/boat/:boatId/reservations" element={
+          <AuthWrapper>
+            <BoatReservationsScreen />
+          </AuthWrapper>
+        } />
+        <Route path="/boat/:boatId/reservations/new" element={
+          <AuthWrapper>
+            <NewBoatReservationScreen required_role="BOAT_OWNER"/>
+          </AuthWrapper>
+        } />
+        <Route path="/cottage/:cottageId/reservations" element={
+          <AuthWrapper>
+            <CottageReservationsScreen />
+          </AuthWrapper>
+        } />
+        <Route path="/cottage/:cottageId/reservations/new" element={
+          <AuthWrapper>
+            <NewCottageReservationScreen required_role="COTTAGE_OWNER"/>
           </AuthWrapper>
         } />
       </Routes>

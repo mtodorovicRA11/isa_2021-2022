@@ -76,8 +76,8 @@ const HomeScreenCottageOwner = () => {
               /></td>
                 <td><Button
                     type="button"
-                    label="Dates"
-                    onClick={() => navigate(`/cottage/view-dates/${item.id}`)}
+                    label="Reservations"
+                    onClick={() => navigate(`/boat/${item.id}/reservations`)}
                 /></td>
                 <td><Button
                     type="button"

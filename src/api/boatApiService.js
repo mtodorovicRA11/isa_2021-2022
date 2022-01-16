@@ -9,6 +9,18 @@ export const getBoatsService = async () => {
   }
 }
 
+export const getFilteredBoatsService = async (params) => {
+  try {
+    const { data } = await axiosInstance.get('/boat/filter', { params: {
+        boat_name: params.searchParam
+      }});
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+
 export const getBoatService = async (id) => {
   try {
     const { data } = await axiosInstance.get(`/boat/${id}`);
