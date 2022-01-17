@@ -27,7 +27,7 @@ public class BoatDateRange extends BaseEntity {
     @NotNull
     private ZonedDateTime end;
 
-    private int maxRenters;
+    private Integer maxRenters;
     private String additionalOffers;
 
     @NotEmpty

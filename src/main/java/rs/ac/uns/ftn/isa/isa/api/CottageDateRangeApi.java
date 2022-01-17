@@ -8,6 +8,7 @@ import rs.ac.uns.ftn.isa.isa.model.CottageDateRange;
 import rs.ac.uns.ftn.isa.isa.services.CottageDateRangeService;
 
 import javax.validation.Valid;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -35,10 +36,11 @@ public class CottageDateRangeApi {
     }
 
     private CottageDateRangeResponse toCottageDateRangeResponse(CottageDateRange cottageDateRange){
+        String pattern = "dd/MM/yyyy hh:mm";
         return CottageDateRangeResponse.builder()
                 .id(cottageDateRange.getId())
-                .beginning(cottageDateRange.getBeginning())
-                .end(cottageDateRange.getEnd())
+                .beginning(DateTimeFormatter.ofPattern(pattern).format(cottageDateRange.getBeginning()))
+                .end(DateTimeFormatter.ofPattern(pattern).format(cottageDateRange.getEnd()))
                 .available(cottageDateRange.getOccupant()==null)
                 .build();
     }

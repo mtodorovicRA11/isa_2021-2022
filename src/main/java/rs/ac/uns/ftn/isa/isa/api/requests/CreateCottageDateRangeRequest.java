@@ -4,17 +4,16 @@ import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.time.ZonedDateTime;
 import java.util.UUID;
 
 @Data
 public class CreateCottageDateRangeRequest {
 
     @NotNull
-    private ZonedDateTime beginning;
+    private String beginning;
 
     @NotNull
-    private ZonedDateTime end;
+    private String end;
 
     @NotNull
     private int maxOccupants;

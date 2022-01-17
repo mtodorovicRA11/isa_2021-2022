@@ -27,7 +27,7 @@ public class CottageDateRange extends BaseEntity {
     @NotNull
     private ZonedDateTime end;
 
-    private int maxOccupants;
+    private Integer maxOccupants;
     private String description;
 
     @NotEmpty

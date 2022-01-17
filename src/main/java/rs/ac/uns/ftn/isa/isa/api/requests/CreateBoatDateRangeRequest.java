@@ -4,22 +4,22 @@ import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.time.ZonedDateTime;
 import java.util.UUID;
 
 @Data
 public class CreateBoatDateRangeRequest {
 
     @NotNull
-    private ZonedDateTime beginning;
+    private String beginning;
 
     @NotNull
-    private ZonedDateTime end;
+    private String end;
 
     @NotEmpty
     private Integer price;
 
-    private Integer maxRenters;
+    @NotNull
+    private int maxRenters;
     private String additionalOffers;
 
     private UUID renterId;

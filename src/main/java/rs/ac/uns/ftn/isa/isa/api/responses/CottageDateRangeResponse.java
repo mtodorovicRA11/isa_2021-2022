@@ -3,7 +3,6 @@ package rs.ac.uns.ftn.isa.isa.api.responses;
 import lombok.Builder;
 import lombok.Getter;
 
-import java.time.ZonedDateTime;
 import java.util.UUID;
 
 @Builder
@@ -11,7 +10,7 @@ import java.util.UUID;
 public class CottageDateRangeResponse {
 
     private UUID id;
-    private ZonedDateTime beginning;
-    private ZonedDateTime end;
+    private String beginning;
+    private String end;
     private Boolean available;
 }

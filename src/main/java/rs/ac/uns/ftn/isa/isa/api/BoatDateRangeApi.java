@@ -8,6 +8,7 @@ import rs.ac.uns.ftn.isa.isa.model.BoatDateRange;
 import rs.ac.uns.ftn.isa.isa.services.BoatDateRangeService;
 
 import javax.validation.Valid;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -35,12 +36,11 @@ public class BoatDateRangeApi {
     }
 
     private BoatDateRangeResponse toBoatDateRangeResponse(BoatDateRange boatDateRange){
+        String pattern = "dd/MM/yyyy hh:mm";
         return BoatDateRangeResponse.builder()
                 .id(boatDateRange.getId())
-                .beginning(boatDateRange.getBeginning())
-                .end(boatDateRange.getEnd())
-                .maxRenters(boatDateRange.getMaxRenters())
-                .additionalOffers(boatDateRange.getAdditionalOffers())
+                .beginning(DateTimeFormatter.ofPattern(pattern).format(boatDateRange.getBeginning()))
+                .end(DateTimeFormatter.ofPattern(pattern).format(boatDateRange.getEnd()))
                 .available(boatDateRange.getRenter()==null)
                 .build();
     }

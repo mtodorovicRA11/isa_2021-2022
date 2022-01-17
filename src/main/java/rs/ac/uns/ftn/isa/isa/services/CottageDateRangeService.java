@@ -7,6 +7,8 @@ import rs.ac.uns.ftn.isa.isa.model.CottageDateRange;
 import rs.ac.uns.ftn.isa.isa.model.User;
 import rs.ac.uns.ftn.isa.isa.repository.CottageDateRangeRepository;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -38,9 +40,12 @@ public class CottageDateRangeService {
             throw new Exception("Only Cottage Owner can create slots");
         }
 
+        ZonedDateTime beginning = LocalDateTime.parse(request.getBeginning()).atZone(ZoneId.systemDefault());
+        ZonedDateTime end = LocalDateTime.parse(request.getEnd()).atZone(ZoneId.systemDefault());
+
         final User occupant = request.getOccupantId() != null ? userService.getUserById(request.getOccupantId()) : null;
 
-        createCottageDateRange(cottage, occupant, request.getBeginning(), request.getEnd(), request.getMaxOccupants(), request.getDescription(), request.getPrice());
+        createCottageDateRange(cottage, occupant, beginning, end, request.getMaxOccupants(), request.getDescription(), request.getPrice());
     }
 
     public CottageDateRange createCottageDateRange(Cottage cottage, User user, ZonedDateTime beginning, ZonedDateTime end, int maxOccupants, String description, Integer price){

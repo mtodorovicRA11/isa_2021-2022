@@ -7,6 +7,8 @@ import rs.ac.uns.ftn.isa.isa.model.BoatDateRange;
 import rs.ac.uns.ftn.isa.isa.model.User;
 import rs.ac.uns.ftn.isa.isa.repository.BoatDateRangeRepository;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -41,7 +43,10 @@ public class BoatDateRangeService {
 
         final User renter = request.getRenterId() != null ? userService.getUserById(request.getRenterId()) : null;
 
-        createBoatDateRange(boat, renter, request.getBeginning(), request.getEnd(), request.getMaxRenters(), request.getAdditionalOffers(), request.getPrice());
+        ZonedDateTime beginning = LocalDateTime.parse(request.getBeginning()).atZone(ZoneId.systemDefault());
+        ZonedDateTime end = LocalDateTime.parse(request.getEnd()).atZone(ZoneId.systemDefault());
+
+        createBoatDateRange(boat, renter, beginning, end, request.getMaxRenters(), request.getAdditionalOffers(), request.getPrice());
     }
 
     public BoatDateRange createBoatDateRange(Boat boat, User user, ZonedDateTime beginning, ZonedDateTime end, int maxRenters, String additionalOffers, Integer price){
