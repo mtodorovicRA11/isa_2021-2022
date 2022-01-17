@@ -28,7 +28,7 @@ const NewBoatScreen = () => {
   const handleSubmit = async (formData, {setSubmitting}) => {
     try {
       setSubmitting(true);
-      postBoatService(formData)
+      await postBoatService(formData)
       setSubmitting(false);
       navigate("/boats");
     } catch (error) {

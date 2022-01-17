@@ -26,6 +26,7 @@ const NewCottageReservationScreen = () => {
       setSubmitting(false);
       navigate(`/cottage/${cottageId}/reservations`);
     } catch (error) {
+      alert(error.response.data);
       console.log(error);
     }
   }

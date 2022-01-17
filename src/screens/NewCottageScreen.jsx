@@ -21,7 +21,7 @@ const NewCottageScreen = () => {
   const handleSubmit = async (formData, { setSubmitting }) => {
     try {
       setSubmitting(true);
-      postCottageService(formData)
+      await postCottageService(formData)
       setSubmitting(false);
       navigate("/cottages");
     } catch (error) {

@@ -26,6 +26,7 @@ const NewBoatReservationScreen = () => {
       setSubmitting(false);
       navigate(`/boat/${boatId}/reservations`);
     } catch (error) {
+      alert(error.response.data);
       console.log(error);
     }
   }

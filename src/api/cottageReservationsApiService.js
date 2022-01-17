@@ -9,7 +9,7 @@ export const getCottageReservationsService = async (id) => {
   }
 }
 
-export const postCottageReservationService = async (formData, id) => {
+export const postCottageReservationService = async (id, formData) => {
   try {
     const { data } = await axiosInstance.post(`cottage/${id}/date-range/`, formData);
     return data;

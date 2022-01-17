@@ -79,8 +79,8 @@ const Navigation = ({ handleSearch }) => {
                 handleBlur,
                 handleSubmit,
               }) => (
-              <form onSubmit={handleSubmit} class="form-inline my-2 my-lg-0 d-flex justify-content-between">
-                <TextField class="form-control mr-sm-2"
+              <form onSubmit={handleSubmit} class="navbar-nav">
+                <TextField class="form-control"
                   placeholder="Search"
                   type="text"
                   name="searchParam"
@@ -88,7 +88,7 @@ const Navigation = ({ handleSearch }) => {
                   onBlur={handleBlur}
                   value={values.searchParam}
                 />
-                <Button type="submit" label="Search" class="btn btn-outline-success my-2 my-sm-0"/>
+                <Button type="submit" label="Search" className="nav-item"/>
               </form>
             )}
           </Formik>}

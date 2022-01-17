@@ -38,7 +38,7 @@ const ViewCottageScreen = () => {
     try {
       setSubmitting(true);
       await updateCottageService(formData);
-      navigate('/', { replace: true })
+      navigate('/cottages', { replace: true })
       setSubmitting(false);
     } catch (error) {
       alert(error.response.data);
