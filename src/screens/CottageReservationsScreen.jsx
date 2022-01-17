@@ -29,12 +29,26 @@ const CottageReservationsScreen = () => {
 
   }, [])
 
+  function renderAvailability(available) {
+    if(available) {
+      return "Available"
+    }
+
+    return "Not available"
+  }
+
+  function renderHeadline(cottage) {
+    if(cottage) {
+      return 'Reservations for ' + cottage.name
+    }
+  }
+
   if (isLoading) return "Loading...";
 
   return (
       <div className="container">
         <Navigation />
-      <h1>Reservations for {cottage.name}</h1>
+      <h1>{renderHeadline(cottage)}</h1>
         <td><Button
           type="button"
           label="Add New"
@@ -53,7 +67,7 @@ const CottageReservationsScreen = () => {
             <tr key={item.id}>
               <th scope="row">{item.beginning}</th>
               <td>{item.end}</td>
-              <td>{item.available}</td>
+              <td>{renderAvailability(item.available)}</td>
             </tr>
           ))}
         </tbody>

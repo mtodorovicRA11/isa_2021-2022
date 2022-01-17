@@ -6,45 +6,67 @@ import Button from "./Button";
 import {getRole} from "../api/axiosInstance";
 import {signOutService} from "../api/authServices";
 
-function renderHome() {
-  if (getRole() === "COTTAGE_OWNER") {
-    return (
-      <NavLink className={isActive => isActive ? "nav-link-active" : "nav-link"} to="/cottages">Home</NavLink>
-    );
-  } else if (getRole() === "BOAT_OWNER") {
-    return (
-      <NavLink className={isActive => isActive ? "nav-link-active" : "nav-link"} to="/boats">Home</NavLink>
-    );
-  }
-}
-
 function renderBack() {
-  if(window.location.href!=="http://localhost:3000/boats" && window.location.href!=="http://localhost:3000/cottages"){
-    return(
-      <li className="nav-item">
-        <NavLink className={isActive => isActive ? "nav-link-active" : "nav-link"} to="window.history.back();">Back</NavLink>
-      </li>
+  if(window.location.href!=="http://localhost:3000/boats" && window.location.href!=="http://localhost:3000/cottages") {
+    return (
+      <Button
+        type="button"
+        label="Back"
+        onClick={() => {
+          window.history.back();
+        }
+        }
+      />
     )
   }
 }
 
 const Navigation = ({ handleSearch }) => {
 
+  const navigate = useNavigate();
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <div className="collapse navbar-collapse d-flex justify-content-between" id="navbarSupportedContent">
           <ul className="navbar-nav mr-auto">
             <li className="nav-item nav-link">
-              {renderBack()}
+              {renderBack}
             </li>
             <li className="nav-item nav-link">
-              {renderHome()}
+              <Button
+                type="button"
+                label="Home"
+                onClick={() => {
+                  if (getRole() === "COTTAGE_OWNER") {
+                    navigate("/cottages");
+                  }
+                  if (getRole() === "BOAT_OWNER") {
+                    navigate("/boats");
+                  }
+                }
+                }
+              />
             </li>
             <li className="nav-item nav-link">
-              <NavLink className={isActive => isActive ? "nav-link-active" : "nav-link"} to="/profile">Profile</NavLink>
+              <Button
+                type="button"
+                label="My Profile"
+                onClick={() => {
+                  navigate("/profile");
+                }
+                }
+              />
             </li>
             <li className="nav-item nav-link">
-              <NavLink className={isActive => isActive ? "nav-link-active" : "nav-link"} to="javascript:window.history.back();" >Sign Out</NavLink>
+              <Button
+                type="button"
+                label="Sign Out"
+                onClick={() => {
+                  signOutService();
+                  navigate("/signin");
+                }
+                }
+              />
             </li>
           </ul>
           {handleSearch && <Formik

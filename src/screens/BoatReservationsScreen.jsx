@@ -19,8 +19,8 @@ const BoatReservationsScreen = () => {
       setIsLoading(true);
       const data = await getBoatReservationsService(boatId);
       setReservations(data ?? [])
-      const boat = await getBoatService(boatId);
-      setBoat(boat ?? null)
+      const tempBoat = await getBoatService(boatId);
+      setBoat(tempBoat ?? null)
       setIsLoading(false);
     }
     const timer = setTimeout(() => {
@@ -30,12 +30,26 @@ const BoatReservationsScreen = () => {
 
   }, [])
 
+  function renderAvailability(available) {
+    if(available) {
+      return "Available"
+    }
+
+    return "Not available"
+  }
+
+  function renderHeadline(boat) {
+    if(boat) {
+      return 'Reservations for ' + boat.name
+    }
+  }
+
   if (isLoading) return "Loading...";
 
   return (
       <div className="container">
         <Navigation/>
-      <h1>Reservations for </h1>
+      <h1>{renderHeadline(boat)}</h1>
         <td><Button
           type="button"
           label="Add New"
@@ -54,7 +68,7 @@ const BoatReservationsScreen = () => {
             <tr key={item.id}>
               <th scope="row">{item.beginning}</th>
               <td>{item.end}</td>
-              <td>{item.available}</td>
+              <td>{renderAvailability(item.available)}</td>
             </tr>
           ))}
         </tbody>
