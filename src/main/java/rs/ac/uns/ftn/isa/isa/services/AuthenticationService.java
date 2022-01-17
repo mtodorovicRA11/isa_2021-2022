@@ -16,9 +16,11 @@ public class AuthenticationService {
 
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
+    private final MailService mailService;
 
-    public AuthenticationService(UserService userService) {
+    public AuthenticationService(UserService userService, MailService mailService) {
         this.userService = userService;
+        this.mailService = mailService;
         passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
@@ -29,7 +31,9 @@ public class AuthenticationService {
         }
 
         userService.createUser(request.getEmail(), request.getPassword(), request.getRole(), request.getName(), request.getSurname(), request.getAddress(), request.getCity(), request.getCountry(), request.getPhoneNumber(), request.getReason());
-        // TODO: 12/7/21 send email
+
+        String emailText = request.getName() + " just registered! You need to activate this user!";
+        mailService.sendSimpleMessage("lazarpantovic@gmail.com", "NEW REGISTRATION", emailText);
     }
 
     public SignInResponse signIn(SignInRequest request) throws Exception {
