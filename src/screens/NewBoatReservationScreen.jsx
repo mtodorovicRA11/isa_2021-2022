@@ -51,6 +51,9 @@ const NewBoatReservationScreen = () => {
                     if (!values.price) {
                       errors.price = 'Required';
                     }
+                    if (!values.maxRenters) {
+                      errors.maxRenters = 'Required';
+                    }
                     return errors;
                   }}
                   onSubmit={handleSubmit}
@@ -103,7 +106,7 @@ const NewBoatReservationScreen = () => {
                         </div>
                         <div className="col-6">
                       <TextField
-                          label="Maximum Renters"
+                          label="Maximum Renters *"
                           type="text"
                           name="maxRenters"
                           onChange={handleChange}
@@ -124,7 +127,7 @@ const NewBoatReservationScreen = () => {
                       />
                       <TextField
                           label="Renter"
-                          type="number"
+                          type="text"
                           name="renterId"
                           onChange={handleChange}
                           onBlur={handleBlur}

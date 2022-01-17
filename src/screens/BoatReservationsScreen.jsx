@@ -4,6 +4,7 @@ import {useNavigate, useParams} from 'react-router-dom';
 import Navigation from "../components/Navigation";
 import {getBoatService, getFilteredBoatsService} from "../api/boatApiService";
 import {getBoatReservationsService} from "../api/boatReservationsApiService";
+import {getRole} from "../api/axiosInstance";
 
 const BoatReservationsScreen = () => {
   const [reservations, setReservations] = useState([]);
@@ -34,7 +35,7 @@ const BoatReservationsScreen = () => {
   return (
       <div className="container">
         <Navigation/>
-      <h1>Reservations for {boat.name}</h1>
+      <h1>Reservations for </h1>
         <td><Button
           type="button"
           label="Add New"

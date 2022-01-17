@@ -106,7 +106,7 @@ const NewCottageReservationScreen = () => {
                         </div>
                         <div className="col-6">
                       <TextField
-                          label="Maximum Occupants"
+                          label="Maximum Occupants *"
                           type="text"
                           name="maxOccupants"
                           onChange={handleChange}
@@ -127,7 +127,7 @@ const NewCottageReservationScreen = () => {
                       />
                       <TextField
                           label="Occupant"
-                          type="number"
+                          type="text"
                           name="occupantId"
                           onChange={handleChange}
                           onBlur={handleBlur}
