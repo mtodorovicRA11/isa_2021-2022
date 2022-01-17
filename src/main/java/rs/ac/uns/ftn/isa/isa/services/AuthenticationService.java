@@ -33,7 +33,7 @@ public class AuthenticationService {
         userService.createUser(request.getEmail(), request.getPassword(), request.getRole(), request.getName(), request.getSurname(), request.getAddress(), request.getCity(), request.getCountry(), request.getPhoneNumber(), request.getReason());
 
         String emailText = request.getName() + " just registered! You need to activate this user!";
-        mailService.sendSimpleMessage("lazarpantovic@gmail.com", "NEW REGISTRATION", emailText);
+        mailService.sendSimpleMessage("katarina.kaca.pantovic@gmail.com", "NEW REGISTRATION", emailText);
     }
 
     public SignInResponse signIn(SignInRequest request) throws Exception {

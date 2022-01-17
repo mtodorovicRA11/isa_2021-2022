@@ -41,5 +41,9 @@ public class BoatDateRange extends BaseEntity {
 
     @Min(1)
     @Max(5)
+    private Integer renterRating;
+
+    @Min(1)
+    @Max(5)
     private int rating;
 }

@@ -49,7 +49,9 @@ public class BoatDateRangeService {
         createBoatDateRange(boat, renter, beginning, end, request.getMaxRenters(), request.getAdditionalOffers(), request.getPrice());
     }
 
-    public BoatDateRange createBoatDateRange(Boat boat, User user, ZonedDateTime beginning, ZonedDateTime end, int maxRenters, String additionalOffers, Integer price){
+    public BoatDateRange createBoatDateRange(Boat boat, User user, ZonedDateTime beginning, ZonedDateTime end, int maxRenters, String additionalOffers, Integer price) throws Exception {
+
+        checkRanges(boat, beginning, end);
 
         BoatDateRange boatDateRange = new BoatDateRange();
         boatDateRange.setBoat(boat);
@@ -61,5 +63,23 @@ public class BoatDateRangeService {
         boatDateRange.setPrice(price);
 
         return boatDateRangeRepository.save(boatDateRange);
+    }
+
+    private void checkRanges(Boat boat, ZonedDateTime beginning, ZonedDateTime end) throws Exception {
+
+        if(!beginning.isBefore(end)){
+            throw new Exception("Beginning has to be BEFORE the End");
+        }
+
+        if(beginning.isBefore(ZonedDateTime.now())){
+            throw new Exception("Creation in the past error");
+        }
+
+        //(StartA <= EndB) and (EndA >= StartB)
+        for (BoatDateRange dateRange : boat.getDateRanges()) {
+            if(dateRange.getBeginning().isBefore(end) && dateRange.getEnd().isAfter(beginning)){
+                throw new Exception("Range clash error");
+            }
+        }
     }
 }

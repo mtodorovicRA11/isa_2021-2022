@@ -2,9 +2,7 @@ package rs.ac.uns.ftn.isa.isa.services;
 
 import org.springframework.stereotype.Service;
 import rs.ac.uns.ftn.isa.isa.api.requests.CreateCottageDateRangeRequest;
-import rs.ac.uns.ftn.isa.isa.model.Cottage;
-import rs.ac.uns.ftn.isa.isa.model.CottageDateRange;
-import rs.ac.uns.ftn.isa.isa.model.User;
+import rs.ac.uns.ftn.isa.isa.model.*;
 import rs.ac.uns.ftn.isa.isa.repository.CottageDateRangeRepository;
 
 import java.time.LocalDateTime;
@@ -48,7 +46,9 @@ public class CottageDateRangeService {
         createCottageDateRange(cottage, occupant, beginning, end, request.getMaxOccupants(), request.getDescription(), request.getPrice());
     }
 
-    public CottageDateRange createCottageDateRange(Cottage cottage, User user, ZonedDateTime beginning, ZonedDateTime end, int maxOccupants, String description, Integer price){
+    public CottageDateRange createCottageDateRange(Cottage cottage, User user, ZonedDateTime beginning, ZonedDateTime end, int maxOccupants, String description, Integer price) throws Exception {
+
+        checkRanges(cottage, beginning, end);
 
         CottageDateRange cottageDateRange = new CottageDateRange();
         cottageDateRange.setCottage(cottage);
@@ -60,5 +60,23 @@ public class CottageDateRangeService {
         cottageDateRange.setPrice(price);
 
         return cottageDateRangeRepository.save(cottageDateRange);
+    }
+
+    private void checkRanges(Cottage cottage, ZonedDateTime beginning, ZonedDateTime end) throws Exception {
+
+        if(!beginning.isBefore(end)){
+            throw new Exception("Beginning has to be BEFORE the End");
+        }
+
+        if(beginning.isBefore(ZonedDateTime.now())){
+            throw new Exception("Creation in the past error");
+        }
+
+        //(StartA <= EndB) and (EndA >= StartB)
+        for (CottageDateRange dateRange : cottage.getDateRanges()) {
+            if(dateRange.getBeginning().isBefore(end) && dateRange.getEnd().isAfter(beginning)){
+                throw new Exception("Range clash error");
+            }
+        }
     }
 }

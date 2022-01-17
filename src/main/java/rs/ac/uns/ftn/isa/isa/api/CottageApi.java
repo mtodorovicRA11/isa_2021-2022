@@ -7,9 +7,11 @@ import rs.ac.uns.ftn.isa.isa.api.requests.UpdateCottageRequest;
 import rs.ac.uns.ftn.isa.isa.api.responses.CottageResponse;
 import rs.ac.uns.ftn.isa.isa.api.responses.CottagesResponse;
 import rs.ac.uns.ftn.isa.isa.model.Cottage;
+import rs.ac.uns.ftn.isa.isa.model.CottageDateRange;
 import rs.ac.uns.ftn.isa.isa.services.CottageService;
 
 import javax.validation.Valid;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -65,6 +67,9 @@ public class CottageApi {
                 .id(cottage.getId())
                 .name(cottage.getName())
                 .address(cottage.getAddress())
+                .rating(cottage.getDateRanges().stream().filter(b->b.getEnd().isBefore(ZonedDateTime.now())&&b.getRating()!=0).mapToDouble(CottageDateRange::getRating)
+                        .average()
+                        .orElse(0))
                 .build();
     }
 

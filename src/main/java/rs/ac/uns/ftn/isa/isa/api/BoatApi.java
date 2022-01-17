@@ -7,9 +7,11 @@ import rs.ac.uns.ftn.isa.isa.api.requests.UpdateBoatRequest;
 import rs.ac.uns.ftn.isa.isa.api.responses.BoatResponse;
 import rs.ac.uns.ftn.isa.isa.api.responses.BoatsResponse;
 import rs.ac.uns.ftn.isa.isa.model.Boat;
+import rs.ac.uns.ftn.isa.isa.model.BoatDateRange;
 import rs.ac.uns.ftn.isa.isa.services.BoatService;
 
 import javax.validation.Valid;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -66,6 +68,9 @@ public class BoatApi {
                 .name(boat.getName())
                 .type(boat.getType())
                 .address(boat.getAddress())
+                .rating(boat.getDateRanges().stream().filter(b->b.getEnd().isBefore(ZonedDateTime.now())&&b.getRating()!=0).mapToDouble(BoatDateRange::getRating)
+                        .average()
+                        .orElse(0))
                 .build();
     }
 
