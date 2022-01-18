@@ -29,9 +29,9 @@ const CottageReservationsScreen = () => {
 
   }, [])
 
-  function renderAvailability(available) {
-    if(available) {
-      return "Available"
+  function renderAvailability(item) {
+    if(item.availableToOccupy) {
+      return item.occupiedBy!=="FREE"? item.occupiedBy:"Available";
     }
 
     return "Not available"
@@ -59,7 +59,7 @@ const CottageReservationsScreen = () => {
           <tr>
             <th scope="col">Beginning</th>
             <th scope="col">End</th>
-            <th scope="col">Available</th>
+            <th scope="col">Occupied By</th>
           </tr>
         </thead>
         <tbody>
@@ -67,7 +67,7 @@ const CottageReservationsScreen = () => {
             <tr key={item.id}>
               <th scope="row">{item.beginning}</th>
               <td>{item.end}</td>
-              <td>{renderAvailability(item.available)}</td>
+              <td>{renderAvailability(item)}</td>
             </tr>
           ))}
         </tbody>

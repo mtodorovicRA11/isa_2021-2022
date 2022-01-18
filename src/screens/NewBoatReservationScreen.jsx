@@ -4,6 +4,7 @@ import Button from '../components/Button';
 import TextField from '../components/form-fields/TextField';
 import {useNavigate, useParams} from 'react-router-dom';
 import {postBoatReservationService} from "../api/boatReservationsApiService";
+import RadioGroupField from "../components/form-fields/RadioGroupField";
 
 const NewBoatReservationScreen = () => {
   const navigate = useNavigate();
@@ -16,7 +17,8 @@ const NewBoatReservationScreen = () => {
     price: '',
     maxRenters: '',
     additionalOffers: '',
-    renterId: ''
+    renterId: '',
+    availableToRent:"Yes"
   }
 
   const handleSubmit = async (formData, { setSubmitting }) => {
@@ -66,6 +68,7 @@ const NewBoatReservationScreen = () => {
                     handleChange,
                     handleBlur,
                     handleSubmit,
+                      setFieldValue,
                     isSubmitting,
                   }) => (
                     <form onSubmit={handleSubmit}>
@@ -126,6 +129,15 @@ const NewBoatReservationScreen = () => {
                           value={values.additionalOffers}
                           error={errors.additionalOffers && touched.additionalOffers && errors.additionalOffers}
                       />
+                      <div className="col-6">
+                      <RadioGroupField
+                        label="Available For Rent"
+                        name="availableToRent"
+                        options={["Yes", "No"]}
+                        onChange={setFieldValue}
+                        onBlur={handleBlur}
+                        value={values.availableToRent}
+                      />
                       <TextField
                           label="Renter"
                           type="text"
@@ -135,6 +147,7 @@ const NewBoatReservationScreen = () => {
                           value={values.renterId}
                           error={errors.renterId && touched.renterId && errors.renterId}
                       />
+                      </div>
                       <div className="d-flex justify-content-between mt-3">
                         <Button
                           type="submit"

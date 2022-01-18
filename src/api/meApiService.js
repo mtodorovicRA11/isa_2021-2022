@@ -16,3 +16,11 @@ export const updateMeService = async (formData) => {
     throw error;
   }
 }
+
+export const deactivateMeService = async () => {
+  try {
+    await axiosInstance.post('/user/me/deactivate');
+  } catch (error) {
+    throw error;
+  }
+}

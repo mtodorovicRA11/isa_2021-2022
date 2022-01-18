@@ -30,12 +30,12 @@ const BoatReservationsScreen = () => {
 
   }, [])
 
-  function renderAvailability(available) {
-    if(available) {
-      return "Available"
+  function renderAvailability(item) {
+    if(item.availableToRent) {
+      return item.rentedBy!=="FREE"? item.rentedBy:"Available";
     }
 
-    return "Not available"
+    return "Not Available"
   }
 
   function renderHeadline(boat) {
@@ -60,7 +60,7 @@ const BoatReservationsScreen = () => {
           <tr>
             <th scope="col">Beginning</th>
             <th scope="col">End</th>
-            <th scope="col">Available</th>
+            <th scope="col">Rented By</th>
           </tr>
         </thead>
         <tbody>
@@ -68,7 +68,7 @@ const BoatReservationsScreen = () => {
             <tr key={item.id}>
               <th scope="row">{item.beginning}</th>
               <td>{item.end}</td>
-              <td>{renderAvailability(item.available)}</td>
+              <td>{renderAvailability(item)}</td>
             </tr>
           ))}
         </tbody>

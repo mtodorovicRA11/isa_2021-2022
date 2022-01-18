@@ -3,8 +3,7 @@ import { Formik } from 'formik';
 import TextField from '../components/form-fields/TextField';
 import { Link, useNavigate } from 'react-router-dom';
 import Button from '../components/Button';
-import {getMeService, updateMeService} from '../api/meApiService';
-import {getCottagesService} from "../api/cottageApiService";
+import {getMeService, updateMeService, deactivateMeService} from '../api/meApiService';
 
 const ProfileScreen = () => {
   const navigate = useNavigate();
@@ -143,6 +142,11 @@ const ProfileScreen = () => {
                           type="submit"
                           label="Update"
                           disabled={isSubmitting}
+                        />
+                        <Button
+                          type="button"
+                          label="Deactivate"
+                          onClick={()=>deactivateMeService()}
                         />
                         <Button
                           type="button"

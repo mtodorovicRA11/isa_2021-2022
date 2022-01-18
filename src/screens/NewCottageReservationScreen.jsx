@@ -4,11 +4,12 @@ import Button from '../components/Button';
 import TextField from '../components/form-fields/TextField';
 import {useNavigate, useParams} from 'react-router-dom';
 import {postCottageReservationService} from "../api/cottageReservationsApiService";
+import RadioGroupField from "../components/form-fields/RadioGroupField";
 
 const NewCottageReservationScreen = () => {
   const navigate = useNavigate();
 
-  let { cottageId } = useParams();
+  let {cottageId} = useParams();
 
   const initialValues = {
     beginning: '',
@@ -16,13 +17,14 @@ const NewCottageReservationScreen = () => {
     price: '',
     maxOccupants: '',
     description: '',
-    occupantId: ''
+    occupantId: '',
+    availableToOccupy: "Yes"
   }
 
-  const handleSubmit = async (formData, { setSubmitting }) => {
+  const handleSubmit = async (formData, {setSubmitting}) => {
     try {
       setSubmitting(true);
-      postCottageReservationService(cottageId, formData)
+      await postCottageReservationService(cottageId, formData)
       setSubmitting(false);
       navigate(`/cottage/${cottageId}/reservations`);
     } catch (error) {
@@ -34,7 +36,7 @@ const NewCottageReservationScreen = () => {
   return (
     <main className="login-form">
       <div className="container">
-        <div className="row justify-content-center align-content-center" style={{ height: '100vh' }}>
+        <div className="row justify-content-center align-content-center" style={{height: '100vh'}}>
           <div className="col-md-8">
             <div className="card">
               <div className="card-header">New Cottage Reservation</div>
@@ -60,73 +62,83 @@ const NewCottageReservationScreen = () => {
                   onSubmit={handleSubmit}
                 >
                   {({
-                    values,
-                    errors,
-                    touched,
-                    handleChange,
-                    handleBlur,
-                    handleSubmit,
-                    isSubmitting,
-                  }) => (
+                      values,
+                      errors,
+                      touched,
+                      handleChange,
+                      handleBlur,
+                      handleSubmit,
+                      setFieldValue,
+                      isSubmitting,
+                    }) => (
                     <form onSubmit={handleSubmit}>
                       <div className="d-flex justify-content-between">
                         <div className="col-6">
-                      <TextField
-                        label="Beginning *"
-                        type="datetime-local"
-                        name="beginning"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.beginning}
-                        error={errors.beginning && touched.beginning && errors.beginning}
-                      />
+                          <TextField
+                            label="Beginning *"
+                            type="datetime-local"
+                            name="beginning"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values.beginning}
+                            error={errors.beginning && touched.beginning && errors.beginning}
+                          />
                         </div>
                         <div className="col-6">
-                      <TextField
-                        label="End *"
-                        type="datetime-local"
-                        name="end"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.end}
-                        error={errors.end && touched.end && errors.end}
-                      />
+                          <TextField
+                            label="End *"
+                            type="datetime-local"
+                            name="end"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values.end}
+                            error={errors.end && touched.end && errors.end}
+                          />
                         </div>
                       </div>
                       <div className="d-flex justify-content-between">
                         <div className="col-6">
-                      <TextField
-                          label="Price *"
-                          type="number"
-                          name="price"
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          value={values.price}
-                          error={errors.price && touched.price && errors.price}
-                      />
+                          <TextField
+                            label="Price *"
+                            type="number"
+                            name="price"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values.price}
+                            error={errors.price && touched.price && errors.price}
+                          />
                         </div>
                         <div className="col-6">
-                      <TextField
-                          label="Maximum Occupants *"
-                          type="text"
-                          name="maxOccupants"
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          value={values.maxOccupants}
-                          error={errors.maxOccupants && touched.maxOccupants && errors.maxOccupants}
-                      />
+                          <TextField
+                            label="Maximum Occupants *"
+                            type="text"
+                            name="maxOccupants"
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            value={values.maxOccupants}
+                            error={errors.maxOccupants && touched.maxOccupants && errors.maxOccupants}
+                          />
+                        </div>
                       </div>
-                      </div>
                       <TextField
-                          label="Description"
-                          type="number"
-                          name="description"
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          value={values.description}
-                          error={errors.description && touched.description && errors.description}
+                        label="Description"
+                        type="number"
+                        name="description"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        value={values.description}
+                        error={errors.description && touched.description && errors.description}
                       />
-                      <TextField
+                      <div className="col-6">
+                        <RadioGroupField
+                          label="Available For Occupy"
+                          name="availableToOccupy"
+                          options={["Yes", "No"]}
+                          onChange={setFieldValue}
+                          onBlur={handleBlur}
+                          value={values.availableToOccupy}
+                        />
+                        <TextField
                           label="Occupant"
                           type="text"
                           name="occupantId"
@@ -134,7 +146,8 @@ const NewCottageReservationScreen = () => {
                           onBlur={handleBlur}
                           value={values.occupantId}
                           error={errors.occupantId && touched.occupantId && errors.occupantId}
-                      />
+                        />
+                      </div>
                       <div className="d-flex justify-content-between mt-3">
                         <Button
                           type="submit"
@@ -144,7 +157,9 @@ const NewCottageReservationScreen = () => {
                         <Button
                           type="button"
                           label="Cancel"
-                          onClick={() => {window.history.back()}}
+                          onClick={() => {
+                            window.history.back()
+                          }}
                         />
                       </div>
                     </form>
@@ -155,7 +170,7 @@ const NewCottageReservationScreen = () => {
           </div>
         </div>
       </div>
-    </main >
+    </main>
   )
 }
 
