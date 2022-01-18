@@ -12,5 +12,6 @@ public class BoatDateRangeResponse {
     private UUID id;
     private String beginning;
     private String end;
-    private Boolean available;
+    private Boolean availableToRent;
+    private String rentedBy;
 }

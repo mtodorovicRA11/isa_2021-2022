@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @Service
@@ -17,11 +18,13 @@ public class CottageDateRangeService {
     private final CottageDateRangeRepository cottageDateRangeRepository;
     private final CottageService cottageService;
     private final UserService userService;
+    private final MailService mailService;
 
-    public CottageDateRangeService(CottageDateRangeRepository cottageDateRangeRepository, CottageService cottageService, UserService userService) {
+    public CottageDateRangeService(CottageDateRangeRepository cottageDateRangeRepository, CottageService cottageService, UserService userService, MailService mailService) {
         this.cottageDateRangeRepository = cottageDateRangeRepository;
         this.cottageService = cottageService;
         this.userService = userService;
+        this.mailService = mailService;
     }
 
     public List<CottageDateRange> getAllForCottageId(UUID id) throws Exception {
@@ -43,10 +46,17 @@ public class CottageDateRangeService {
 
         final User occupant = request.getOccupantId() != null ? userService.getUserById(request.getOccupantId()) : null;
 
-        createCottageDateRange(cottage, occupant, beginning, end, request.getMaxOccupants(), request.getDescription(), request.getPrice());
-    }
+        createCottageDateRange(cottage, occupant, beginning, end, request.getMaxOccupants(), request.getDescription(), request.getPrice(), Objects.equals(request.getAvailableToOccupy(), "Yes"));
 
-    public CottageDateRange createCottageDateRange(Cottage cottage, User user, ZonedDateTime beginning, ZonedDateTime end, int maxOccupants, String description, Integer price) throws Exception {
+        if(occupant!=null){
+            mailService.sendSimpleMessage(occupant.getEmail(), "You've just rented a Cottage", "Please check it out");
+        }
+
+//        since this is not implemented -> the below line is commented
+//        mailService.sendSimpleMessage("EACH_MAIL_FROM_THE_LIST", "Cottage availability changed", "Check it out!");
+}
+
+    public CottageDateRange createCottageDateRange(Cottage cottage, User user, ZonedDateTime beginning, ZonedDateTime end, int maxOccupants, String description, Integer price, Boolean availableToOccupy) throws Exception {
 
         checkRanges(cottage, beginning, end);
 
@@ -58,6 +68,7 @@ public class CottageDateRangeService {
         cottageDateRange.setMaxOccupants(maxOccupants);
         cottageDateRange.setDescription(description);
         cottageDateRange.setPrice(price);
+        cottageDateRange.setAvailableToOccupy(availableToOccupy);
 
         return cottageDateRangeRepository.save(cottageDateRange);
     }

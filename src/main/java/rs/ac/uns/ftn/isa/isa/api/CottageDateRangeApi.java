@@ -35,13 +35,14 @@ public class CottageDateRangeApi {
         cottageDateRangeService.create(id, request);
     }
 
-    private CottageDateRangeResponse toCottageDateRangeResponse(CottageDateRange cottageDateRange){
+    private CottageDateRangeResponse toCottageDateRangeResponse(CottageDateRange cottageDateRange) {
         String pattern = "dd/MM/yyyy hh:mm";
         return CottageDateRangeResponse.builder()
                 .id(cottageDateRange.getId())
                 .beginning(DateTimeFormatter.ofPattern(pattern).format(cottageDateRange.getBeginning()))
                 .end(DateTimeFormatter.ofPattern(pattern).format(cottageDateRange.getEnd()))
-                .available(cottageDateRange.getOccupant()==null)
+                .availableToOccupy(cottageDateRange.getAvailableToOccupy())
+                .occupiedBy(cottageDateRange.getOccupant() != null ? cottageDateRange.getOccupant().getName() : "FREE")
                 .build();
     }
 }

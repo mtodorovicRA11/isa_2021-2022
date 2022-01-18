@@ -17,9 +17,11 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final MailService mailService;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, MailService mailService) {
         this.userRepository = userRepository;
+        this.mailService = mailService;
         passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
@@ -52,9 +54,8 @@ public class UserService {
     public void deactivateMe() throws Exception {
 
         User user = getMe();
-        user.setDeleted(true);
-
-        userRepository.save(user);
+        String emailText = user.getName() + " just requested deactivation!";
+        mailService.sendSimpleMessage("katarina.kaca.pantovic@gmail.com", "Request for Deactivation", emailText);
     }
 
     public User getUserByEmail(String email) throws Exception {

@@ -36,6 +36,9 @@ public class CottageDateRange extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private Cottage cottage;
 
+    @NotNull
+    private Boolean availableToOccupy;
+
     @ManyToOne(fetch = FetchType.LAZY)
     private User occupant;
 

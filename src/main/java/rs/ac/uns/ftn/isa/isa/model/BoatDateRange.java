@@ -36,6 +36,9 @@ public class BoatDateRange extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private Boat boat;
 
+    @NotNull
+    private Boolean availableToRent;
+
     @ManyToOne(fetch = FetchType.LAZY)
     private User renter;
 

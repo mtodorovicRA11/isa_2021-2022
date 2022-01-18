@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @Service
@@ -19,11 +20,13 @@ public class BoatDateRangeService {
     private final BoatDateRangeRepository boatDateRangeRepository;
     private final BoatService boatService;
     private final UserService userService;
+    private final MailService mailService;
 
-    public BoatDateRangeService(BoatDateRangeRepository boatDateRangeRepository, BoatService boatService, UserService userService) {
+    public BoatDateRangeService(BoatDateRangeRepository boatDateRangeRepository, BoatService boatService, UserService userService, MailService mailService) {
         this.boatDateRangeRepository = boatDateRangeRepository;
         this.boatService = boatService;
         this.userService = userService;
+        this.mailService = mailService;
     }
 
 
@@ -46,10 +49,17 @@ public class BoatDateRangeService {
         ZonedDateTime beginning = LocalDateTime.parse(request.getBeginning()).atZone(ZoneId.systemDefault());
         ZonedDateTime end = LocalDateTime.parse(request.getEnd()).atZone(ZoneId.systemDefault());
 
-        createBoatDateRange(boat, renter, beginning, end, request.getMaxRenters(), request.getAdditionalOffers(), request.getPrice());
+        createBoatDateRange(boat, renter, beginning, end, request.getMaxRenters(), request.getAdditionalOffers(), request.getPrice(), Objects.equals(request.getAvailableToRent(), "Yes"));
+
+        if(renter!=null){
+            mailService.sendSimpleMessage(renter.getEmail(), "You've just rented a Boat", "Please check it out");
+        }
+
+//        since this is not implemented -> the below line is commented
+//        mailService.sendSimpleMessage("EACH_MAIL_FROM_THE_LIST", "Boat availability changed", "Check it out!");
     }
 
-    public BoatDateRange createBoatDateRange(Boat boat, User user, ZonedDateTime beginning, ZonedDateTime end, int maxRenters, String additionalOffers, Integer price) throws Exception {
+    public BoatDateRange createBoatDateRange(Boat boat, User user, ZonedDateTime beginning, ZonedDateTime end, int maxRenters, String additionalOffers, Integer price, Boolean availableToRent) throws Exception {
 
         checkRanges(boat, beginning, end);
 
@@ -61,6 +71,7 @@ public class BoatDateRangeService {
         boatDateRange.setMaxRenters(maxRenters);
         boatDateRange.setAdditionalOffers(additionalOffers);
         boatDateRange.setPrice(price);
+        boatDateRange.setAvailableToRent(availableToRent);
 
         return boatDateRangeRepository.save(boatDateRange);
     }

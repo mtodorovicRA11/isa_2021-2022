@@ -12,5 +12,6 @@ public class CottageDateRangeResponse {
     private UUID id;
     private String beginning;
     private String end;
-    private Boolean available;
+    private Boolean availableToOccupy;
+    private String occupiedBy;
 }

@@ -21,6 +21,9 @@ public class CreateCottageDateRangeRequest {
     @NotEmpty
     private Integer price;
 
+    @NotEmpty
+    private String availableToOccupy;
+
     private String description;
     private UUID occupantId;
 }

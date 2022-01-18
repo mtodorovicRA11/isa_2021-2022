@@ -35,13 +35,14 @@ public class BoatDateRangeApi {
         boatDateRangeService.create(id, request);
     }
 
-    private BoatDateRangeResponse toBoatDateRangeResponse(BoatDateRange boatDateRange){
+    private BoatDateRangeResponse toBoatDateRangeResponse(BoatDateRange boatDateRange) {
         String pattern = "dd/MM/yyyy hh:mm";
         return BoatDateRangeResponse.builder()
                 .id(boatDateRange.getId())
                 .beginning(DateTimeFormatter.ofPattern(pattern).format(boatDateRange.getBeginning()))
                 .end(DateTimeFormatter.ofPattern(pattern).format(boatDateRange.getEnd()))
-                .available(boatDateRange.getRenter()==null)
+                .availableToRent(boatDateRange.getAvailableToRent())
+                .rentedBy(boatDateRange.getRenter() != null ? boatDateRange.getRenter().getName() : "FREE")
                 .build();
     }
 }

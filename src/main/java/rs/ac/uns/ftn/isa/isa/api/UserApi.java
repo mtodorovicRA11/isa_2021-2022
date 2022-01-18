@@ -39,7 +39,7 @@ public class UserApi {
         userService.changePassword(request.getNewPassword());
     }
 
-    @PutMapping(value = "/me/deactivate")
+    @PostMapping(value = "/me/deactivate")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deactivateMe() throws Exception {
         userService.deactivateMe();

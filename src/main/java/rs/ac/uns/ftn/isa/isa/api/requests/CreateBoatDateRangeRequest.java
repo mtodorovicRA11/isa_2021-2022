@@ -20,6 +20,10 @@ public class CreateBoatDateRangeRequest {
 
     @NotNull
     private int maxRenters;
+
+    @NotNull
+    private String availableToRent;
+
     private String additionalOffers;
 
     private UUID renterId;
