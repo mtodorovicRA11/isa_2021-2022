@@ -102,6 +102,7 @@ const NewBoatReservationScreen = () => {
                           label="Price *"
                           type="number"
                           name="price"
+                          min="1"
                           onChange={handleChange}
                           onBlur={handleBlur}
                           value={values.price}
@@ -113,6 +114,7 @@ const NewBoatReservationScreen = () => {
                           label="Maximum Renters *"
                           type="text"
                           name="maxRenters"
+                          min="1"
                           onChange={handleChange}
                           onBlur={handleBlur}
                           value={values.maxRenters}
@@ -122,7 +124,7 @@ const NewBoatReservationScreen = () => {
                       </div>
                       <TextField
                           label="Additional Offers"
-                          type="number"
+                          type="text"
                           name="additionalOffers"
                           onChange={handleChange}
                           onBlur={handleBlur}

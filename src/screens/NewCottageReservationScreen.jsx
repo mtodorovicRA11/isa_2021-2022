@@ -102,6 +102,7 @@ const NewCottageReservationScreen = () => {
                             label="Price *"
                             type="number"
                             name="price"
+                            min="1"
                             onChange={handleChange}
                             onBlur={handleBlur}
                             value={values.price}
@@ -113,6 +114,7 @@ const NewCottageReservationScreen = () => {
                             label="Maximum Occupants *"
                             type="text"
                             name="maxOccupants"
+                            min="1"
                             onChange={handleChange}
                             onBlur={handleBlur}
                             value={values.maxOccupants}

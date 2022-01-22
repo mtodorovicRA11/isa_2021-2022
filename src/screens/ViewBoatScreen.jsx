@@ -123,6 +123,7 @@ const ViewBoatScreen = () => {
                           label="Length in cm *"
                           type="number"
                           name="length"
+                          min="1"
                           onChange={handleChange}
                           onBlur={handleBlur}
                           value={values.length}
@@ -132,6 +133,7 @@ const ViewBoatScreen = () => {
                           label="Capacity"
                           type="text"
                           name="capacity"
+                          min="1"
                           onChange={handleChange}
                           onBlur={handleBlur}
                           value={values.capacity}
@@ -152,6 +154,7 @@ const ViewBoatScreen = () => {
                           label="Power in W *"
                           type="number"
                           name="motorPower"
+                          min="1"
                           onChange={handleChange}
                           onBlur={handleBlur}
                           value={values.motorPower}
@@ -161,6 +164,7 @@ const ViewBoatScreen = () => {
                           label="Maximum Speed *"
                           type="number"
                           name="maxSpeed"
+                          min="1"
                           onChange={handleChange}
                           onBlur={handleBlur}
                           value={values.maxSpeed}

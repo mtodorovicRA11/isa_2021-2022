@@ -101,6 +101,7 @@ const NewCottageScreen = () => {
                           label="Number of Rooms"
                           type="number"
                           name="roomNumber"
+                          min="1"
                           onChange={handleChange}
                           onBlur={handleBlur}
                           value={values.roomNumber}
@@ -110,6 +111,7 @@ const NewCottageScreen = () => {
                           label="Number of beds"
                           type="number"
                           name="bedNumber"
+                          min="1"
                           onChange={handleChange}
                           onBlur={handleBlur}
                           value={values.bedNumber}

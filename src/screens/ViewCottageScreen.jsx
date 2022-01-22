@@ -118,6 +118,7 @@ const ViewCottageScreen = () => {
                           label="Number of Rooms"
                           type="number"
                           name="roomNumber"
+                          min="1"
                           onChange={handleChange}
                           onBlur={handleBlur}
                           value={values.roomNumber}
@@ -127,9 +128,10 @@ const ViewCottageScreen = () => {
                           label="Number of beds"
                           type="number"
                           name="bedNumber"
+                          min="1"
                           onChange={handleChange}
                           onBlur={handleBlur}
-                          value={values.roomNumber}
+                          value={values.bedNumber}
                           error={errors.bedNumber && touched.bedNumber && errors.bedNumber}
                       />
                       <TextField
