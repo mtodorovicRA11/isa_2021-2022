@@ -46,6 +46,9 @@ public class CottageDateRange extends BaseEntity {
     @Max(5)
     private Integer occupantRating;
 
+    private String occupantComment;
+    private Boolean occupantShowed;
+
     @Min(1)
     @Max(5)
     private int rating;

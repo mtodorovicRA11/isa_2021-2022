@@ -10,6 +10,7 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -55,6 +56,27 @@ public class CottageDateRangeService {
 //        since this is not implemented -> the below line is commented
 //        mailService.sendSimpleMessage("EACH_MAIL_FROM_THE_LIST", "Cottage availability changed", "Check it out!");
 }
+
+    public void createOccupantReview(UUID dateRangeId, String comment, Boolean showed, Integer rating) throws Exception {
+
+        CottageDateRange cottageDateRange = getById(dateRangeId);
+        cottageDateRange.setOccupantRating(rating);
+        cottageDateRange.setOccupantShowed(showed);
+        cottageDateRange.setOccupantComment(comment);
+        cottageDateRangeRepository.save(cottageDateRange);
+
+        if(rating==1){
+            final String mailText = "User "+cottageDateRange.getOccupant().getName() + " received rating of 1";
+            mailService.sendSimpleMessage("katarina.kaca.pantovic@gmail.com", "Low user rating", mailText);
+        }
+    }
+
+    private CottageDateRange getById(UUID id) throws Exception {
+
+        Optional<CottageDateRange> cottageDateRangeOptional = cottageDateRangeRepository.findById(id);
+
+        return cottageDateRangeOptional.orElseThrow(() -> new Exception("Cottage date range not found"));
+    }
 
     public CottageDateRange createCottageDateRange(Cottage cottage, User user, ZonedDateTime beginning, ZonedDateTime end, int maxOccupants, String description, Integer price, Boolean availableToOccupy) throws Exception {
 

@@ -14,4 +14,5 @@ public class BoatDateRangeResponse {
     private String end;
     private Boolean availableToRent;
     private String rentedBy;
+    private Boolean renterReviewLeft;
 }

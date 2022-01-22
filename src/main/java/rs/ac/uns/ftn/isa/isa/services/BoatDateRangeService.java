@@ -12,6 +12,7 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -57,6 +58,27 @@ public class BoatDateRangeService {
 
 //        since this is not implemented -> the below line is commented
 //        mailService.sendSimpleMessage("EACH_MAIL_FROM_THE_LIST", "Boat availability changed", "Check it out!");
+    }
+
+    public void createRenterReview(UUID dateRangeId, String comment, Boolean showed, Integer rating) throws Exception {
+
+        BoatDateRange boatDateRange = getById(dateRangeId);
+        boatDateRange.setRenterRating(rating);
+        boatDateRange.setRenterShowed(showed);
+        boatDateRange.setRenterComment(comment);
+        boatDateRangeRepository.save(boatDateRange);
+
+        if(rating==1){
+            final String mailText = "User "+boatDateRange.getRenter().getName() + " received rating of 1";
+            mailService.sendSimpleMessage("katarina.kaca.pantovic@gmail.com", "Low user rating", mailText);
+        }
+    }
+
+    private BoatDateRange getById(UUID id) throws Exception {
+
+        Optional<BoatDateRange> boatDateRangeOptional = boatDateRangeRepository.findById(id);
+
+        return boatDateRangeOptional.orElseThrow(() -> new Exception("Boat date range not found"));
     }
 
     public BoatDateRange createBoatDateRange(Boat boat, User user, ZonedDateTime beginning, ZonedDateTime end, int maxRenters, String additionalOffers, Integer price, Boolean availableToRent) throws Exception {

@@ -14,4 +14,5 @@ public class CottageDateRangeResponse {
     private String end;
     private Boolean availableToOccupy;
     private String occupiedBy;
+    private Boolean occupantReviewLeft;
 }
