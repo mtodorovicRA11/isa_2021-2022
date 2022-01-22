@@ -43,6 +43,22 @@ const CottageReservationsScreen = () => {
     }
   }
 
+  function renderLeaveAReview(item) {
+    //todo: implement check for review to be available only after item.end
+    if (item.occupantReviewLeft) {
+      return "Review sent"
+    }
+    if (item.occupiedBy !== "FREE" && item.availableToOccupy) {
+      return (
+        <Button
+          type="button"
+          label="Leave a Review"
+          onClick={() => navigate(`${item.id}/review`)}
+        />
+      )
+    }
+  }
+
   if (isLoading) return "Loading...";
 
   return (
@@ -60,6 +76,7 @@ const CottageReservationsScreen = () => {
             <th scope="col">Beginning</th>
             <th scope="col">End</th>
             <th scope="col">Occupied By</th>
+            <th scope="col"></th>
           </tr>
         </thead>
         <tbody>
@@ -68,6 +85,7 @@ const CottageReservationsScreen = () => {
               <th scope="row">{item.beginning}</th>
               <td>{item.end}</td>
               <td>{renderAvailability(item)}</td>
+              <td>{renderLeaveAReview(item)}</td>
             </tr>
           ))}
         </tbody>

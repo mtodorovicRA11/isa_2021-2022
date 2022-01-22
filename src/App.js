@@ -16,6 +16,8 @@ import NewBoatReservationScreen from "./screens/NewBoatReservationScreen";
 import CottageReservationsScreen from "./screens/CottageReservationsScreen";
 import NewCottageReservationScreen from "./screens/NewCottageReservationScreen";
 import SignInScreen from "./screens/SignInScreen";
+import NewBoatReservationReviewScreen from "./screens/NewBoatReservationReviewScreen"
+import NewCottageReservationReviewScreen from "./screens/NewCottageReservationReviewScreen"
 
 function App() {
   return (
@@ -66,6 +68,16 @@ function App() {
         <Route path="/boat/:boatId/reservations/new" element={
           <AuthWrapper>
             <NewBoatReservationScreen required_role="BOAT_OWNER"/>
+          </AuthWrapper>
+        } />
+        <Route path="/boat/:boatId/reservations/:reservationId/review" element={
+          <AuthWrapper>
+            <NewBoatReservationReviewScreen required_role="BOAT_OWNER"/>
+          </AuthWrapper>
+        } />
+        <Route path="/cottage/:cottageId/reservations/:reservationId/review" element={
+          <AuthWrapper>
+            <NewCottageReservationReviewScreen required_role="COTTAGE_OWNER"/>
           </AuthWrapper>
         } />
         <Route path="/cottage/:cottageId/reservations" element={

@@ -20,7 +20,6 @@ export const getFilteredBoatsService = async (params) => {
   }
 }
 
-
 export const getBoatService = async (id) => {
   try {
     const { data } = await axiosInstance.get(`/boat/${id}`);
@@ -56,4 +55,14 @@ export const deleteBoatService = async (id) => {
     throw error;
   }
 }
+
+export const postBoatReservationReviewService = async (id, formData) => {
+  try {
+    const { data } = await axiosInstance.post(`/boat/date-range/${id}/renter-review`, formData);
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
 

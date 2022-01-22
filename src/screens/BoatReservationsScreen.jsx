@@ -5,6 +5,7 @@ import Navigation from "../components/Navigation";
 import {getBoatService, getFilteredBoatsService} from "../api/boatApiService";
 import {getBoatReservationsService} from "../api/boatReservationsApiService";
 import {getRole} from "../api/axiosInstance";
+import {signOutService} from "../api/authServices";
 
 const BoatReservationsScreen = () => {
   const [reservations, setReservations] = useState([]);
@@ -44,6 +45,22 @@ const BoatReservationsScreen = () => {
     }
   }
 
+  function renderLeaveAReview(item) {
+    //todo: implement check for review to be available only after item.end
+    if(item.renterReviewLeft){
+      return "Review sent"
+    }
+    if(item.rentedBy!=="FREE" && item.availableToRent ) {
+      return(
+        <Button
+          type="button"
+          label="Leave a Review"
+          onClick={() => navigate(`${item.id}/review`)}
+        />
+      )
+    }
+  }
+
   if (isLoading) return "Loading...";
 
   return (
@@ -61,6 +78,7 @@ const BoatReservationsScreen = () => {
             <th scope="col">Beginning</th>
             <th scope="col">End</th>
             <th scope="col">Rented By</th>
+            <th scope="col"></th>
           </tr>
         </thead>
         <tbody>
@@ -69,6 +87,7 @@ const BoatReservationsScreen = () => {
               <th scope="row">{item.beginning}</th>
               <td>{item.end}</td>
               <td>{renderAvailability(item)}</td>
+              <td>{renderLeaveAReview(item)}</td>
             </tr>
           ))}
         </tbody>

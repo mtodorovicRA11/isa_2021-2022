@@ -56,3 +56,12 @@ export const deleteCottageService = async (id) => {
   }
 }
 
+export const postCottageReservationReviewService = async (id, formData) => {
+  try {
+    const { data } = await axiosInstance.post(`/cottage/date-range/${id}/occupant-review`, formData);
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
